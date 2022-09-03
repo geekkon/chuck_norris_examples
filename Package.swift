@@ -13,7 +13,10 @@ let package = Package(
   products: [
     .library(name: "FeatureApp", targets: ["FeatureApp"]),
     .library(name: "FeatureCategories", targets: ["FeatureCategories"]),
-    .library(name: "FeatureJoke", targets: ["FeatureJoke"])
+    .library(name: "FeatureJoke", targets: ["FeatureJoke"]),
+    .library(name: "FeatureUserSettings", targets: ["FeatureUserSettings"]),
+    .library(name: "SharedJokesRepository", targets: ["SharedJokesRepository"]),
+    .library(name: "SharedModels", targets: ["SharedModels"]),
   ],
   dependencies: [
     .package(
@@ -27,12 +30,14 @@ let package = Package(
       dependencies: [
         "FeatureCategories",
         "FeatureJoke",
+        "FeatureUserSettings",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
       name: "FeatureCategories",
       dependencies: [
+        "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -45,6 +50,8 @@ let package = Package(
     .target(
       name: "FeatureJoke",
       dependencies: [
+        "SharedJokesRepository",
+        "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -53,6 +60,21 @@ let package = Package(
       dependencies: [
         "FeatureJoke"
       ]
+    ),
+    .target(
+      name: "FeatureUserSettings",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "SharedJokesRepository",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "SharedModels"
     )
   ]
 )

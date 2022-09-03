@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		14CF585D28C21EAB001350C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14CF585C28C21EAB001350C2 /* Assets.xcassets */; };
-		14F793B728C212A30045B1DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F793B628C212A30045B1DC /* AppDelegate.swift */; };
 		14F793B928C214A70045B1DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F793B828C214A70045B1DC /* App.swift */; };
 		14F793BC28C215720045B1DC /* FeatureApp in Frameworks */ = {isa = PBXBuildFile; productRef = 14F793BB28C215720045B1DC /* FeatureApp */; };
 /* End PBXBuildFile section */
@@ -18,7 +17,6 @@
 		14F793A328C2097B0045B1DC /* TCAChuckNorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCAChuckNorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F793B428C20CC40045B1DC /* TCAChuckNorris */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TCAChuckNorris; path = ..; sourceTree = "<group>"; };
 		14F793B528C2118C0045B1DC /* TCAChuckNorris-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TCAChuckNorris-Info.plist"; sourceTree = "<group>"; };
-		14F793B628C212A30045B1DC /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		14F793B828C214A70045B1DC /* App.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
@@ -56,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				14F793B828C214A70045B1DC /* App.swift */,
-				14F793B628C212A30045B1DC /* AppDelegate.swift */,
 				14F793B528C2118C0045B1DC /* TCAChuckNorris-Info.plist */,
 				14CF585C28C21EAB001350C2 /* Assets.xcassets */,
 			);
@@ -142,7 +139,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14F793B728C212A30045B1DC /* AppDelegate.swift in Sources */,
 				14F793B928C214A70045B1DC /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
