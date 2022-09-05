@@ -67,6 +67,7 @@ public struct FeatureJoke: ReducerProtocol {
     return .task { [state] in
       await .jokeLoaded(TaskResult { try await jokesRepository.randomJoke(state.category) })
     }
+    .animation(.easeOut)
     .cancellable(id: CancelID.self)
   }
 }
@@ -93,27 +94,29 @@ public struct JokeView: View {
 
   public var body: some View {
     NavigationView {
-      if #available(iOS 14.0, *) {
-        contentView(viewStore: viewStore)
+      ZStack {
+        if #available(iOS 14.0, *) {
+          contentView(viewStore: viewStore)
           .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
               refreshButton(viewStore: viewStore)
             }
           }
-          .navigationTitle(viewStore.navigationTitle)
-      } else {
-        contentView(viewStore: viewStore)
-          .navigationBarTitle(viewStore.navigationTitle)
-          .navigationBarItems(
-            trailing: refreshButton(viewStore: viewStore)
-          )
+        .navigationTitle(viewStore.navigationTitle)
+        } else {
+          contentView(viewStore: viewStore)
+            .navigationBarTitle(viewStore.navigationTitle)
+            .navigationBarItems(
+              trailing: refreshButton(viewStore: viewStore)
+            )
+        }
       }
     }
   }
 
   @ViewBuilder
   private func refreshButton(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
-    Button(action: { viewStore.send(.refreshTapped) }) {
+    Button(action: { viewStore.send(.refreshTapped, animation: .easeOut) }) {
       Image(systemName: "arrow.2.circlepath")
     }
   }
