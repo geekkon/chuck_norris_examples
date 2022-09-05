@@ -4,6 +4,8 @@
 
 import Foundation
 
+public typealias JokeCategoryResponseModel = String
+
 public struct JokeCategory: Equatable {
 
   public let rawValue: String

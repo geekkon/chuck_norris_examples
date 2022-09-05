@@ -15,10 +15,15 @@ let package = Package(
     .library(name: "FeatureCategories", targets: ["FeatureCategories"]),
     .library(name: "FeatureJoke", targets: ["FeatureJoke"]),
     .library(name: "FeatureUserSettings", targets: ["FeatureUserSettings"]),
+    .library(name: "LibraryAPIClient", targets: ["LibraryAPIClient"]),
     .library(name: "SharedJokesRepository", targets: ["SharedJokesRepository"]),
     .library(name: "SharedModels", targets: ["SharedModels"]),
   ],
   dependencies: [
+    .package(
+      url: "https://github.com/kean/get",
+      from: "2.0.0"
+    ),
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       branch: "protocol"
@@ -68,9 +73,17 @@ let package = Package(
       ]
     ),
     .target(
+      name: "LibraryAPIClient",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Get", package: "get")
+      ]
+    ),
+    .target(
       name: "SharedJokesRepository",
       dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        "LibraryAPIClient"
       ]
     ),
     .target(

@@ -4,6 +4,7 @@
 
 import ComposableArchitecture
 import Foundation
+import LibraryAPIClient
 import SharedModels
 import XCTestDynamicOverlay
 
@@ -19,20 +20,21 @@ extension DependencyValues {
     set { self[JokesRepositoryKey.self] = newValue }
   }
 
-  private enum JokesRepositoryKey: DependencyKey {
-    static let liveValue = JokesRepository.live
+  private enum JokesRepositoryKey: TestDependencyKey {
     static let testValue = JokesRepository.unimplemented
   }
 }
 
 extension JokesRepository {
-  static let live = Self(
-    categories: { [] },
-    randomJoke: { _ in
-      try! await Task.sleep(nanoseconds: NSEC_PER_SEC)
-      return Joke(text: "JOKE")
-    }
-  )
+
+  public static func live(apiClient: APIClient) -> Self {
+    .init(
+      categories: { [] },
+      randomJoke: { category -> Joke in
+        Joke(text: try await apiClient.send(API.jokes.random(category: category).get).value.value)
+      }
+    )
+  }
 }
 
 extension JokesRepository {

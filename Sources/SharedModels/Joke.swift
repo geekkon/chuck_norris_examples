@@ -4,6 +4,15 @@
 
 import Foundation
 
+public struct JokeResponseModel: Decodable {
+
+  public let value: String
+
+  public init(value: String) {
+    self.value = value
+  }
+}
+
 public struct Joke: Equatable {
 
   public let text: String
