@@ -9,6 +9,7 @@ public struct FeatureJoke: ReducerProtocol {
 
     public enum LoadingState: Equatable {
       case failed
+      case initial
       case loading
       case loaded(Joke)
     }
@@ -18,7 +19,7 @@ public struct FeatureJoke: ReducerProtocol {
 
     public init(
       category: JokeCategory? = nil,
-      loadingState: LoadingState = .loading
+      loadingState: LoadingState = .initial
     ) {
       self.category = category
       self.loadingState = loadingState
@@ -27,14 +28,9 @@ public struct FeatureJoke: ReducerProtocol {
 
   public enum Action: Equatable {
     case jokeLoaded(TaskResult<Joke>)
-
-    @available(iOS, deprecated: 15.0, message: ".task() modifier should be used instead")
     case onAppear
-    @available(iOS, deprecated: 15.0, message: ".task() modifier should be used instead")
     case onDisappear
-
     case refreshTapped
-    case task
   }
 
   private enum CancelID {}
@@ -52,12 +48,14 @@ public struct FeatureJoke: ReducerProtocol {
         state.loadingState = .loaded(joke)
         return .none
       case .onAppear:
-        return loadJoke(state: &state)
+        if state.loadingState == .initial {
+          return loadJoke(state: &state)
+        } else {
+          return .none
+        }
       case .onDisappear:
         return .cancel(id: CancelID.self)
       case .refreshTapped:
-        return loadJoke(state: &state)
-      case .task:
         return loadJoke(state: &state)
     }
   }
@@ -118,7 +116,7 @@ public struct JokeView: View {
     switch viewStore.loadingState {
       case .failed:
         failedView
-      case .loading:
+      case .initial, .loading:
         loadingView(viewStore: viewStore)
       case .loaded(let joke):
         jokeView(joke: joke)
@@ -149,19 +147,12 @@ public struct JokeView: View {
 
   @ViewBuilder
   private func loadingView(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
-    if #available(iOS 15.0, *) {
-      ProgressView()
-        .task {
-          await viewStore.send(.task).finish()
-        }
-    } else {
-      ProgressView()
-        .onAppear {
-          viewStore.send(.onAppear)
-        }
-        .onDisappear {
-          viewStore.send(.onDisappear)
-        }
-    }
+    ProgressView()
+      .onAppear {
+        viewStore.send(.onAppear)
+      }
+      .onDisappear {
+        viewStore.send(.onDisappear)
+      }
   }
 }
