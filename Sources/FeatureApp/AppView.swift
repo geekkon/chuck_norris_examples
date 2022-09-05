@@ -97,21 +97,11 @@ public struct AppView: View {
 
   @ViewBuilder
   private func categoriesTabItem() -> some View {
-    if #available(iOS 14.0, *) {
-      Label("Categories", systemImage: "list.dash")
-    } else {
-      Image(systemName: "list.dash")
-      Text("Categories")
-    }
+    Label("Categories", systemImage: "list.dash")
   }
 
   @ViewBuilder
   private func jokeTabItem() -> some View {
-    if #available(iOS 14.0, *) {
-      Label("Random", systemImage: "star")
-    } else {
-      Image(systemName: "star")
-      Text("Random")
-    }
+    Label("Random", systemImage: "star")
   }
 }

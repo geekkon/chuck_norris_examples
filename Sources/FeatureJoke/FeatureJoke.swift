@@ -95,21 +95,13 @@ public struct JokeView: View {
   public var body: some View {
     NavigationView {
       ZStack {
-        if #available(iOS 14.0, *) {
-          contentView(viewStore: viewStore)
+        contentView(viewStore: viewStore)
           .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
               refreshButton(viewStore: viewStore)
             }
           }
-        .navigationTitle(viewStore.navigationTitle)
-        } else {
-          contentView(viewStore: viewStore)
-            .navigationBarTitle(viewStore.navigationTitle)
-            .navigationBarItems(
-              trailing: refreshButton(viewStore: viewStore)
-            )
-        }
+          .navigationTitle(viewStore.navigationTitle)
       }
     }
   }
@@ -158,27 +150,18 @@ public struct JokeView: View {
   @ViewBuilder
   private func loadingView(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
     if #available(iOS 15.0, *) {
-      progressView
+      ProgressView()
         .task {
           await viewStore.send(.task).finish()
         }
     } else {
-      progressView
+      ProgressView()
         .onAppear {
           viewStore.send(.onAppear)
         }
         .onDisappear {
           viewStore.send(.onDisappear)
         }
-    }
-  }
-
-  @ViewBuilder
-  private var progressView: some View {
-    if #available(iOS 14.0, *) {
-      ProgressView()
-    } else {
-      Text("Loading")
     }
   }
 }

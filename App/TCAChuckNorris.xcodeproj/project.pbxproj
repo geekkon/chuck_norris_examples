@@ -16,7 +16,6 @@
 		14CF585C28C21EAB001350C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14F793A328C2097B0045B1DC /* TCAChuckNorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCAChuckNorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F793B428C20CC40045B1DC /* TCAChuckNorris */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TCAChuckNorris; path = ..; sourceTree = "<group>"; };
-		14F793B528C2118C0045B1DC /* TCAChuckNorris-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TCAChuckNorris-Info.plist"; sourceTree = "<group>"; };
 		14F793B828C214A70045B1DC /* App.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
@@ -54,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				14F793B828C214A70045B1DC /* App.swift */,
-				14F793B528C2118C0045B1DC /* TCAChuckNorris-Info.plist */,
 				14CF585C28C21EAB001350C2 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -196,7 +194,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -250,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -270,7 +268,7 @@
 				DEVELOPMENT_TEAM = 5393MUFBLF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS/TCAChuckNorris-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -299,7 +297,7 @@
 				DEVELOPMENT_TEAM = 5393MUFBLF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS/TCAChuckNorris-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
