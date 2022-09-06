@@ -119,3 +119,17 @@ public struct AppView: View {
     Label("Random", systemImage: "star")
   }
 }
+
+struct AppView_Previews: PreviewProvider {
+
+  static var previews: some View {
+    NavigationView {
+      AppView(
+        store: .init(
+          initialState: AppReducer.State(),
+          reducer: AppReducer()
+        )
+      )
+    }
+  }
+}
