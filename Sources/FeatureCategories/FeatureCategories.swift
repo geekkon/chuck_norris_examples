@@ -93,3 +93,17 @@ public struct CategoriesView: View {
     }
   }
 }
+
+struct CategoriesView_Previews: PreviewProvider {
+
+  static var previews: some View {
+    NavigationView {
+      CategoriesView(
+        store: .init(
+          initialState: .init(),
+          reducer: FeatureCategories()
+        )
+      )
+    }
+  }
+}
