@@ -21,6 +21,7 @@ extension DependencyValues {
   }
 
   private enum JokesRepositoryKey: TestDependencyKey {
+    static let previewValue = JokesRepository.preview
     static let testValue = JokesRepository.unimplemented
   }
 }
@@ -40,6 +41,16 @@ extension JokesRepository {
 }
 
 extension JokesRepository {
+
+  public static let preview = Self(
+    categories: {
+      [.init("Career"), .init("Family")]
+    },
+    randomJoke: { category -> Joke in
+      Joke(text: "Joke Preview")
+    }
+  )
+
   public static let unimplemented = Self(
     categories: XCTUnimplemented("\(Self.self).categories"),
     randomJoke: XCTUnimplemented("\(Self.self).randomJoke")

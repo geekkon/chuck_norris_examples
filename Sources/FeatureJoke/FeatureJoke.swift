@@ -154,3 +154,17 @@ public struct JokeView: View {
       }
   }
 }
+
+struct JokeView_Previews: PreviewProvider {
+
+  static var previews: some View {
+    NavigationView {
+      JokeView(
+        store: .init(
+          initialState: FeatureJoke.State(),
+          reducer: FeatureJoke()
+        )
+      )
+    }
+  }
+}
