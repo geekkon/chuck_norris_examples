@@ -42,6 +42,8 @@ let package = Package(
     .target(
       name: "FeatureCategories",
       dependencies: [
+        "FeatureJoke",
+        "SharedJokesRepository",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]

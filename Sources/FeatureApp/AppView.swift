@@ -13,18 +13,18 @@ public struct AppReducer: ReducerProtocol {
       case joke
     }
 
-    public var categories: Categories.State
+    public var featureCategories: FeatureCategories.State
     public var featureJoke: FeatureJoke.State
     public var selectedTab: Tab
     public var userSettings: UserSettings
 
     public init(
-      categories: Categories.State = .init(),
+      categories: FeatureCategories.State = .init(),
       featureJoke: FeatureJoke.State = .init(),
       selectedTab: Tab = .categories,
       userSettings: UserSettings = .init()
     ) {
-      self.categories = categories
+      self.featureCategories = categories
       self.featureJoke = featureJoke
       self.selectedTab = selectedTab
       self.userSettings = userSettings
@@ -33,7 +33,7 @@ public struct AppReducer: ReducerProtocol {
 
   public enum Action: Equatable {
     case appDelegate(AppDelegateReducer.Action)
-    case featureCategories(Categories.Action)
+    case featureCategories(FeatureCategories.Action)
     case featureJoke(FeatureJoke.Action)
     case selectTab(State.Tab)
   }
@@ -44,8 +44,8 @@ public struct AppReducer: ReducerProtocol {
     Scope(state: \.userSettings, action: /Action.appDelegate) {
       AppDelegateReducer()
     }
-    Scope(state: \.categories, action: /Action.featureCategories) {
-      Categories()
+    Scope(state: \.featureCategories, action: /Action.featureCategories) {
+      FeatureCategories()
     }
     Scope(state: \.featureJoke, action: /Action.featureJoke) {
       FeatureJoke()
@@ -86,13 +86,27 @@ public struct AppView: View {
   
   public var body: some View {
     TabView(selection: viewStore.binding(get: \.selectedTab, send: { .selectTab($0) })) {
-      CategoriesView(store: store.scope(state: \.categories, action: AppReducer.Action.featureCategories))
-        .tag(AppReducer.State.Tab.categories)
-        .tabItem(categoriesTabItem)
-      JokeView(store: store.scope(state: \.featureJoke, action: AppReducer.Action.featureJoke))
-        .tag(AppReducer.State.Tab.joke)
-        .tabItem(jokeTabItem)
+      categoriesView
+      jokeView
     }
+  }
+
+  @ViewBuilder
+  private var categoriesView: some View {
+    NavigationView {
+      CategoriesView(store: store.scope(state: \.featureCategories, action: AppReducer.Action.featureCategories))
+        .navigationTitle("Joke Categories")
+    }
+    .tag(AppReducer.State.Tab.categories)
+    .tabItem(categoriesTabItem)
+  }
+
+  private var jokeView: some View {
+    NavigationView {
+      JokeView(store: store.scope(state: \.featureJoke, action: AppReducer.Action.featureJoke))
+    }
+    .tag(AppReducer.State.Tab.joke)
+    .tabItem(jokeTabItem)
   }
 
   @ViewBuilder

@@ -91,16 +91,14 @@ public struct JokeView: View {
   }
 
   public var body: some View {
-    NavigationView {
-      ZStack {
-        contentView(viewStore: viewStore)
-          .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-              refreshButton(viewStore: viewStore)
-            }
+    ZStack {
+      contentView(viewStore: viewStore)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarTrailing) {
+            refreshButton(viewStore: viewStore)
           }
-          .navigationTitle(viewStore.navigationTitle)
-      }
+        }
+        .navigationTitle(viewStore.navigationTitle)
     }
   }
 
