@@ -9,7 +9,8 @@ import SwiftUI
 public struct LoadedCategories: ReducerProtocol {
 
   public struct State: Equatable {
-    var categories: IdentifiedArrayOf<CategoryRow.State>
+
+    public var categories: IdentifiedArrayOf<CategoryRow.State>
 
     public init(categories: IdentifiedArrayOf<CategoryRow.State> = []) {
       self.categories = categories

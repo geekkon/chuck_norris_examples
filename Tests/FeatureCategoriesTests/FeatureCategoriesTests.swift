@@ -117,7 +117,7 @@ final class FeatureCategoriesTests: XCTestCase {
           categories: [
             .init(
               category: .mock,
-              selection: .init(.init(category: .mock), id: JokeCategory.mock)
+              selection: .init(.init(category: .mock), id: .mock)
             )
           ]
         )

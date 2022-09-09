@@ -14,8 +14,8 @@ public struct FeatureJoke: ReducerProtocol {
       case loaded(Joke)
     }
 
-    let category: JokeCategory?
-    var loadingState: LoadingState
+    public let category: JokeCategory?
+    public var loadingState: LoadingState
 
     public init(
       category: JokeCategory? = nil,

@@ -11,7 +11,7 @@ public struct LoadingCategories: ReducerProtocol {
 
   public struct State: Equatable {
 
-    var hasInFlightRequest: Bool
+    public var hasInFlightRequest: Bool
 
     public init(hasInFlightRequest: Bool = false) {
       self.hasInFlightRequest = hasInFlightRequest

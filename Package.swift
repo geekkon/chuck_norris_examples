@@ -27,6 +27,10 @@ let package = Package(
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       branch: "protocol"
+    ),
+    .package(
+      url: "https://github.com/pointfreeco/swift-snapshot-testing",
+      from: "1.9.0"
     )
   ],
   targets: [
@@ -38,6 +42,14 @@ let package = Package(
         "FeatureUserSettings",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
+    ),
+    .testTarget(
+      name: "FeatureAppTests",
+      dependencies: [
+        "FeatureApp",
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+      ],
+      exclude: ["__Snapshots__"]
     ),
     .target(
       name: "FeatureCategories",
@@ -51,8 +63,10 @@ let package = Package(
     .testTarget(
       name: "FeatureCategoriesTests",
       dependencies: [
-        "FeatureCategories"
-      ]
+        "FeatureCategories",
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+      ],
+      exclude: ["__Snapshots__"]
     ),
     .target(
       name: "FeatureJoke",
@@ -65,8 +79,10 @@ let package = Package(
     .testTarget(
       name: "FeatureJokeTests",
       dependencies: [
-        "FeatureJoke"
-      ]
+        "FeatureJoke",
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+      ],
+      exclude: ["__Snapshots__"]
     ),
     .target(
       name: "FeatureUserSettings",

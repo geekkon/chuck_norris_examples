@@ -15,6 +15,13 @@
     {
       "target" : {
         "containerPath" : "container:..",
+        "identifier" : "FeatureAppTests",
+        "name" : "FeatureAppTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..",
         "identifier" : "FeatureCategoriesTests",
         "name" : "FeatureCategoriesTests"
       }

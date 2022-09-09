@@ -12,7 +12,7 @@ public struct FeatureCategories: ReducerProtocol {
       case loading(LoadingCategories.State = .init())
     }
 
-    var loadingState: LoadingState
+    public var loadingState: LoadingState
 
     public init(
       loadingState: LoadingState = .loading()
