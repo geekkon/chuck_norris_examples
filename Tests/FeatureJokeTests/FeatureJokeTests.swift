@@ -6,5 +6,32 @@ import XCTest
 @MainActor
 final class FeatureJokeTests: XCTestCase {
 
-  func test() async {}
+  func testOnAppearTriggersRefreshInInitialState() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        loadingState: .initial
+      ),
+      reducer: FeatureJoke()
+    )
+
+    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
+
+    await store.send(.onAppear) {
+      $0.loadingState = .loading
+    }
+
+    await store.receive(.jokeLoaded(.success(.mock))) {
+      $0.loadingState = .loaded(.mock)
+    }
+  }
+
+  func testOnAppearDoesntTriggerRefreshInNonInitialStates() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        loadingState: .loaded(.mock)
+      ),
+      reducer: FeatureJoke()
+    )
+    await store.send(.onAppear)
+  }
 }

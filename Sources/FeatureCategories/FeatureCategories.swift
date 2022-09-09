@@ -45,7 +45,8 @@ public struct FeatureCategories: ReducerProtocol {
 
     Reduce { state, action in
       switch action {
-        case .failed:
+        case .failed(.retry):
+          state.loadingState = .loading(.init())
           return .none
         case .loaded:
           return .none

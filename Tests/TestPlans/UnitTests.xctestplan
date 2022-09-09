@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "4B0FEFF5-F774-4B22-85C5-59F2DFC93525",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..",
+        "identifier" : "FeatureCategoriesTests",
+        "name" : "FeatureCategoriesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..",
+        "identifier" : "FeatureJokeTests",
+        "name" : "FeatureJokeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -34,12 +34,14 @@ public struct LoadingCategories: ReducerProtocol {
 
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
-      case .delegate:
+      case .delegate(.categoriesLoaded):
+        state.hasInFlightRequest = false
         return .none
       case .onAppear:
         if state.hasInFlightRequest {
           return .none
         }
+        state.hasInFlightRequest = true
         return .task {
           await .delegate(.categoriesLoaded(TaskResult { try await jokesRepository.categories() }))
         }

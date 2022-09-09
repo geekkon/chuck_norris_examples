@@ -29,7 +29,6 @@ public struct FeatureJoke: ReducerProtocol {
   public enum Action: Equatable {
     case jokeLoaded(TaskResult<Joke>)
     case onAppear
-    case onDisappear
     case refreshTapped
   }
 
@@ -53,8 +52,6 @@ public struct FeatureJoke: ReducerProtocol {
         } else {
           return .none
         }
-      case .onDisappear:
-        return .cancel(id: CancelID.self)
       case .refreshTapped:
         return loadJoke(state: &state)
     }
@@ -148,9 +145,6 @@ public struct JokeView: View {
     ProgressView()
       .onAppear {
         viewStore.send(.onAppear)
-      }
-      .onDisappear {
-        viewStore.send(.onDisappear)
       }
   }
 }

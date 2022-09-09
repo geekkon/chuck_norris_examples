@@ -13,6 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1413FA4628C88D2C0079DB30 /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UnitTests.xctestplan; path = ../Tests/TestPlans/UnitTests.xctestplan; sourceTree = "<group>"; };
 		14CF585C28C21EAB001350C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14F793A328C2097B0045B1DC /* TCAChuckNorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCAChuckNorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F793B428C20CC40045B1DC /* TCAChuckNorris */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TCAChuckNorris; path = ..; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 		14F7939A28C2097B0045B1DC = {
 			isa = PBXGroup;
 			children = (
+				1413FA4628C88D2C0079DB30 /* UnitTests.xctestplan */,
 				14F793A528C2097B0045B1DC /* iOS */,
 				14F793B428C20CC40045B1DC /* TCAChuckNorris */,
 				14F793A428C2097B0045B1DC /* Products */,

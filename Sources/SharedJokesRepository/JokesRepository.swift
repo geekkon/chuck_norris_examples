@@ -33,7 +33,7 @@ extension JokesRepository {
       categories: {
         try await apiClient.send(API.jokes.categories.get).value.map(JokeCategory.init)
       },
-      randomJoke: { category -> Joke in
+      randomJoke: { category in
         Joke(text: try await apiClient.send(API.jokes.random(category: category).get).value.value)
       }
     )
@@ -42,11 +42,23 @@ extension JokesRepository {
 
 extension JokesRepository {
 
+  struct Failure: Error {}
+  public static let failing = Self(
+    categories: {
+      try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+      throw Failure()
+    },
+    randomJoke: { _ in
+      try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+      throw Failure()
+    }
+  )
+
   public static let preview = Self(
     categories: {
       [.init("Career"), .init("Family")]
     },
-    randomJoke: { category -> Joke in
+    randomJoke: { category in
       Joke(text: "Joke Preview")
     }
   )
