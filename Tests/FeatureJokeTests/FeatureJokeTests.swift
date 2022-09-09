@@ -34,4 +34,23 @@ final class FeatureJokeTests: XCTestCase {
     )
     await store.send(.onAppear)
   }
+
+  func testRefresh() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        loadingState: .loaded(.mock)
+      ),
+      reducer: FeatureJoke()
+    )
+
+    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
+
+    await store.send(.refreshTapped) {
+      $0.loadingState = .loading
+    }
+
+    await store.receive(.jokeLoaded(.success(.mock))) {
+      $0.loadingState = .loaded(.mock)
+    }
+  }
 }
