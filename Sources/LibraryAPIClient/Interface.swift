@@ -8,7 +8,7 @@ import Foundation
 public typealias Request = Get.Request
 public typealias Response = Get.Response
 
-public protocol APIClient {
+public protocol APIClient: Sendable {
 
   @discardableResult func send<T: Decodable>(
     _ request: Request<T>,

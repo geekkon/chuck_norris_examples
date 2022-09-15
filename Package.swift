@@ -41,7 +41,8 @@ let package = Package(
         "FeatureJoke",
         "FeatureUserSettings",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .testTarget(
       name: "FeatureAppTests",
@@ -49,7 +50,8 @@ let package = Package(
         "FeatureApp",
         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
       ],
-      exclude: ["__Snapshots__"]
+      exclude: ["__Snapshots__"],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .target(
       name: "FeatureCategories",
@@ -58,7 +60,8 @@ let package = Package(
         "SharedJokesRepository",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .testTarget(
       name: "FeatureCategoriesTests",
@@ -66,7 +69,8 @@ let package = Package(
         "FeatureCategories",
         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
       ],
-      exclude: ["__Snapshots__"]
+      exclude: ["__Snapshots__"],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .target(
       name: "FeatureJoke",
@@ -74,7 +78,8 @@ let package = Package(
         "SharedJokesRepository",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .testTarget(
       name: "FeatureJokeTests",
@@ -82,30 +87,35 @@ let package = Package(
         "FeatureJoke",
         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
       ],
-      exclude: ["__Snapshots__"]
+      exclude: ["__Snapshots__"],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .target(
       name: "FeatureUserSettings",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .target(
       name: "LibraryAPIClient",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "Get", package: "get")
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=minimal"])]
     ),
     .target(
       name: "SharedJokesRepository",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         "LibraryAPIClient"
-      ]
+      ],
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     ),
     .target(
-      name: "SharedModels"
+      name: "SharedModels",
+      swiftSettings: [.unsafeFlags(["-strict-concurrency=complete"])]
     )
   ]
 )

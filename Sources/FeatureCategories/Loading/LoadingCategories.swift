@@ -42,8 +42,8 @@ public struct LoadingCategories: ReducerProtocol {
           return .none
         }
         state.hasInFlightRequest = true
-        return .task {
-          await .delegate(.categoriesLoaded(TaskResult { try await jokesRepository.categories() }))
+        return .task { [repository = jokesRepository] in
+          await .delegate(.categoriesLoaded(TaskResult { try await repository.categories() }))
         }
     }
   }

@@ -59,8 +59,8 @@ public struct FeatureJoke: ReducerProtocol {
 
   private func loadJoke(state: inout State) -> Effect<Action, Never> {
     state.loadingState = .loading
-    return .task { [state] in
-      await .jokeLoaded(TaskResult { try await jokesRepository.randomJoke(state.category) })
+    return .task { [category = state.category, repository = jokesRepository] in
+      await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
     }
     .animation(.easeOut)
     .cancellable(id: CancelID.self)

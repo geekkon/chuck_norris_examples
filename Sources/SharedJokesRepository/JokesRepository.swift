@@ -8,7 +8,7 @@ import LibraryAPIClient
 import SharedModels
 import XCTestDynamicOverlay
 
-public struct JokesRepository {
+public struct JokesRepository: Sendable {
   public var categories: @Sendable () async throws -> [JokeCategory]
   public var randomJoke: @Sendable (JokeCategory?) async throws -> Joke
 }

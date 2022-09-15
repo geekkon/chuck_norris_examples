@@ -13,7 +13,7 @@ public struct JokeResponseModel: Decodable {
   }
 }
 
-public struct Joke: Equatable {
+public struct Joke: Equatable, Sendable {
 
   public let text: String
 

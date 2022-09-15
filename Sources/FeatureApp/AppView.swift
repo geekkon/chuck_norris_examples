@@ -98,7 +98,7 @@ public struct AppView: View {
         .navigationTitle("Joke Categories")
     }
     .tag(AppReducer.State.Tab.categories)
-    .tabItem(categoriesTabItem)
+    .tabItem { categoriesTabItem() }
   }
 
   private var jokeView: some View {
@@ -106,7 +106,7 @@ public struct AppView: View {
       JokeView(store: store.scope(state: \.featureJoke, action: AppReducer.Action.featureJoke))
     }
     .tag(AppReducer.State.Tab.joke)
-    .tabItem(jokeTabItem)
+    .tabItem { jokeTabItem() }
   }
 
   @ViewBuilder

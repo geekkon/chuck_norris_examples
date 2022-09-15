@@ -10,6 +10,7 @@ import XCTest
 
 @testable import FeatureJoke
 
+@MainActor
 final class SnapshotTests: XCTestCase {
 
   override func setUp() {

@@ -12,6 +12,7 @@ import XCTest
 
 @testable import FeatureApp
 
+@MainActor
 final class SnapshotTests: XCTestCase {
 
   override func setUp() {

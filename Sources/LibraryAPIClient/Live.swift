@@ -15,11 +15,11 @@ public struct LiveAPIClient: APIClient {
     self.apiClient = Get.APIClient(baseURL: baseURL)
   }
 
-  public func send<T>(
+  public func send<T: Decodable>(
     _ request: Request<T>,
     delegate: URLSessionDataDelegate? = nil,
     configure: ((inout URLRequest) throws -> Void)? = nil
-  ) async throws -> Response<T> where T : Decodable {
+  ) async throws -> Response<T> {
     try await apiClient.send(request, delegate: delegate, configure: configure)
   }
 }

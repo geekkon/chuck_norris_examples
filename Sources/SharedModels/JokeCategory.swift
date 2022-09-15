@@ -6,7 +6,7 @@ import Foundation
 
 public typealias JokeCategoryResponseModel = String
 
-public struct JokeCategory: Hashable, Identifiable {
+public struct JokeCategory: Hashable, Identifiable, Sendable {
 
   public var id: String {
     rawValue
