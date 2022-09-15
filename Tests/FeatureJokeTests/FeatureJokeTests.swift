@@ -16,7 +16,7 @@ final class FeatureJokeTests: XCTestCase {
 
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
 
-    await store.send(.onAppear) {
+    _ = await store.send(.onAppear) {
       $0.loadingState = .loading
     }
 
@@ -32,7 +32,7 @@ final class FeatureJokeTests: XCTestCase {
       ),
       reducer: FeatureJoke()
     )
-    await store.send(.onAppear)
+    _ = await store.send(.onAppear)
   }
 
   func testRefresh() async {
@@ -45,7 +45,7 @@ final class FeatureJokeTests: XCTestCase {
 
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
 
-    await store.send(.refreshTapped) {
+    _ = await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 

@@ -21,7 +21,7 @@ final class RefreshTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.randomJoke = { _ in throw Failure() }
 
-    await store.send(.refreshTapped) {
+    _ = await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 
@@ -41,7 +41,7 @@ final class RefreshTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
 
-    await store.send(.refreshTapped) {
+    _ = await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 

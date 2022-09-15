@@ -15,7 +15,7 @@ final class FeatureCategoriesTests: XCTestCase {
 
     store.dependencies.jokesRepository.categories = { [] }
 
-    await store.send(.loading(.onAppear)) {
+    _ = await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -36,8 +36,8 @@ final class FeatureCategoriesTests: XCTestCase {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
-    await store.send(.loading(.onAppear))
-    await store.send(.loading(.onAppear))
+    _ = await store.send(.loading(.onAppear))
+    _ = await store.send(.loading(.onAppear))
 
     await task.cancel()
   }
@@ -51,7 +51,7 @@ final class FeatureCategoriesTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.categories = { throw Failure() }
 
-    await store.send(.loading(.onAppear)) {
+    _ = await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -69,7 +69,7 @@ final class FeatureCategoriesTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.categories = { throw Failure() }
 
-    await store.send(.loading(.onAppear)) {
+    _ = await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -79,11 +79,11 @@ final class FeatureCategoriesTests: XCTestCase {
 
     store.dependencies.jokesRepository.categories = { [] }
 
-    await store.send(.failed(.retry)) {
+    _ = await store.send(.failed(.retry)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: false))
     }
 
-    await store.send(.loading(.onAppear)) {
+    _ = await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -104,7 +104,7 @@ final class FeatureCategoriesTests: XCTestCase {
       reducer: FeatureCategories()
     )
 
-    await store.send(
+    _ = await store.send(
       .loaded(
         .category(
           id: JokeCategory.mock.id,
