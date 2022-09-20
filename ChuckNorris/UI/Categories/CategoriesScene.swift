@@ -1,5 +1,5 @@
 //
-//  CategoriesRouter.swift
+//  CategoriesScene.swift
 //  ChuckNorris
 //
 //  Created by Dim on 20.09.2022.
@@ -7,26 +7,6 @@
 
 import UIKit
 import SwiftUI
-
-final class CategoriesRouter {
-
-    enum Route {
-        case joke(category: String)
-    }
-
-    // Можно сделать fileprivate раз сборка тут же ниже
-    fileprivate weak var controller: UIViewController?
-
-    func handle(_ route: Route) {
-        switch route {
-            case .joke(let category):
-                controller?.navigationController?.pushViewController(
-                    .jokeViewController(category: category),
-                    animated: true
-                )
-        }
-    }
-}
 
 // Решил не выносить сборку в отдельную сущность. На вызывающе стороне выглядит органично и по смыслу подходит exetnsion на UIViewController
 extension UIViewController {
@@ -49,5 +29,25 @@ extension UIViewController {
         )
         router.controller = controller
         return controller
+    }
+}
+
+final class CategoriesRouter {
+
+    enum Route {
+        case joke(category: String)
+    }
+
+    // Можно сделать fileprivate раз сборка тут же ниже
+    fileprivate weak var controller: UIViewController?
+
+    func handle(_ route: Route) {
+        switch route {
+            case .joke(let category):
+                controller?.navigationController?.pushViewController(
+                    .jokeViewController(category: category),
+                    animated: true
+                )
+        }
     }
 }
