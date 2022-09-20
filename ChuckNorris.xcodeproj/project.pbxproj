@@ -13,9 +13,7 @@
 		3213EA1A265E96BF00E16470 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3213EA18265E96BF00E16470 /* LaunchScreen.storyboard */; };
 		3213EA25265E96C000E16470 /* ChuckNorrisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213EA24265E96C000E16470 /* ChuckNorrisTests.swift */; };
 		3213F4D2265EAB5000E16470 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4D1265EAB5000E16470 /* CategoriesView.swift */; };
-		3213F4DC265EBCBC00E16470 /* HTTPServiceStrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4DB265EBCBC00E16470 /* HTTPServiceStrict.swift */; };
 		3213F4E1265EC9BA00E16470 /* JokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E0265EC9BA00E16470 /* JokeView.swift */; };
-		3213F4E8265ECAD800E16470 /* JokeStrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E7265ECAD800E16470 /* JokeStrict.swift */; };
 		3230EFB1265F13FC00628E59 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3230EFB0265F13FC00628E59 /* SnapshotTesting */; };
 		324F3A3228D91315002A8F88 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 324F3A3128D91315002A8F88 /* CombineFeedback */; };
 		324F3A4028DA08F4002A8F88 /* CategoriesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F3A3F28DA08F4002A8F88 /* CategoriesReducer.swift */; };
@@ -51,9 +49,7 @@
 		3213EA24265E96C000E16470 /* ChuckNorrisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorrisTests.swift; sourceTree = "<group>"; };
 		3213EA26265E96C000E16470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3213F4D1265EAB5000E16470 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
-		3213F4DB265EBCBC00E16470 /* HTTPServiceStrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServiceStrict.swift; sourceTree = "<group>"; };
 		3213F4E0265EC9BA00E16470 /* JokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeView.swift; sourceTree = "<group>"; };
-		3213F4E7265ECAD800E16470 /* JokeStrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeStrict.swift; sourceTree = "<group>"; };
 		324F3A3F28DA08F4002A8F88 /* CategoriesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesReducer.swift; sourceTree = "<group>"; };
 		324F3A4128DA11B8002A8F88 /* JokeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeReducer.swift; sourceTree = "<group>"; };
 		324F3A4328DA13E0002A8F88 /* JokeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeScene.swift; sourceTree = "<group>"; };
@@ -163,7 +159,6 @@
 				32C835F526A040C1009C5142 /* HTTPService.swift */,
 				32C835EF26A03DD1009C5142 /* APIRequest.swift */,
 				32C835F326A03F2E009C5142 /* APIResponse.swift */,
-				32C835EC26A03507009C5142 /* Strict */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -192,15 +187,6 @@
 				32C835F726A0411A009C5142 /* URLRequest+HTTPRequest.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		32C835EC26A03507009C5142 /* Strict */ = {
-			isa = PBXGroup;
-			children = (
-				3213F4E7265ECAD800E16470 /* JokeStrict.swift */,
-				3213F4DB265EBCBC00E16470 /* HTTPServiceStrict.swift */,
-			);
-			path = Strict;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,7 +300,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3213EA0E265E96BE00E16470 /* AppDelegate.swift in Sources */,
-				3213F4E8265ECAD800E16470 /* JokeStrict.swift in Sources */,
 				32C835EE26A0351F009C5142 /* HTTPRequest.swift in Sources */,
 				324F3A4028DA08F4002A8F88 /* CategoriesReducer.swift in Sources */,
 				32A4CD6528DA1C9D0058EDDC /* CategoriesScene.swift in Sources */,
@@ -325,7 +310,6 @@
 				32C835F026A03DD1009C5142 /* APIRequest.swift in Sources */,
 				32C835F826A0411A009C5142 /* URLRequest+HTTPRequest.swift in Sources */,
 				3277F27B265F063E007D6B26 /* UITabBarController+ViewControllers.swift in Sources */,
-				3213F4DC265EBCBC00E16470 /* HTTPServiceStrict.swift in Sources */,
 				32C835F626A040C1009C5142 /* HTTPService.swift in Sources */,
 				3213F4D2265EAB5000E16470 /* CategoriesView.swift in Sources */,
 			);
