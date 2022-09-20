@@ -5,7 +5,6 @@
 //  Created by Dim on 15.07.2021.
 //
 
-
 extension HTTPRequest {
 
     var endpoint: String {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct JokeViewState {
     let title: String
@@ -27,6 +28,8 @@ final class JokeViewModel: ViewModel {
 
     private let httpService: HTTPService
     private let category: String?
+
+    private var cancellables: Set<AnyCancellable> = []
 
     private var title: String {
         category?.capitalized ?? "Random"
@@ -54,14 +57,21 @@ private extension JokeViewModel {
 
         let request = APIRequest.RandomJoke(category: category)
 
-        httpService.dispatch(request) { [weak self] result in
-            switch result {
-                case .success(let joke):
+        httpService.publisher(for: request)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            print(error)
+                    }
+                },
+                receiveValue: { [weak self] joke in
                     self?.handle(joke: joke)
-                case .failure(let error):
-                    print(error)
-            }
-        }
+                }
+            )
+            .store(in: &cancellables)
     }
 
     func handle(joke: APIResponse.Joke) {
