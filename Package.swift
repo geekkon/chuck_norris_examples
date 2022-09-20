@@ -26,7 +26,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      branch: "protocol"
+      revision: "f6bacd34f4b8ca5d7580e7ce68588f6b87a57237"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
