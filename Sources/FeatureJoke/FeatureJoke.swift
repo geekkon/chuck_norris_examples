@@ -53,6 +53,9 @@ public struct FeatureJoke: ReducerProtocol {
           return .none
         }
       case .refreshTapped:
+        guard state.loadingState != .loading else {
+          return .none
+        }
         return loadJoke(state: &state)
     }
   }

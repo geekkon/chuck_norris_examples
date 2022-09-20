@@ -49,5 +49,16 @@ final class RefreshTests: XCTestCase {
       $0.loadingState = .loaded(.mock)
     }
   }
+
+  func testRefreshTapHasNoEffectIfAlreadyLoading() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        loadingState: .loading
+      ),
+      reducer: FeatureJoke()
+    )
+
+    _ = await store.send(.refreshTapped)
+  }
 }
 
