@@ -10,9 +10,12 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    lazy var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
+    lazy var window: UIWindow? = .init(frame: UIScreen.main.bounds)
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
 
         UINavigationBar.appearance().prefersLargeTitles = true
 
@@ -21,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .init(
                     name: "Categories",
                     icon: "list.dash",
-                    viewController: CategoriesViewController()
+                    viewController: .categoriesViewController()
                 ),
                 .init(
                     name: "Random",
