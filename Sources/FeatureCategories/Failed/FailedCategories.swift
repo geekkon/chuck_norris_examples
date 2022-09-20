@@ -25,7 +25,7 @@ struct FailedCategoriesView: View {
   let store: StoreOf<FailedCategories>
 
   var body: some View {
-    WithViewStore(store) { viewStore in
+    WithViewStore(store, observe: { $0 }) { viewStore in
       VStack {
         Text("Something went wrong")
         Button("Retry", action: { viewStore.send(.retry) })

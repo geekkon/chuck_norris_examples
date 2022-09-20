@@ -55,24 +55,20 @@ public struct CategoryRow: ReducerProtocol {
 struct CategoryRowView: View {
 
   let store: StoreOf<CategoryRow>
-  @ObservedObject private var viewStore: ViewStoreOf<CategoryRow>
-
-  init(store: StoreOf<CategoryRow>) {
-    self.store = store
-    self.viewStore = ViewStore(store)
-  }
 
   var body: some View {
-    NavigationLink(
-      viewStore.category.rawValue,
-      destination: IfLetStore(store.scope(state: \.selection?.value, action: CategoryRow.Action.joke)) {
-        JokeView(store: $0)
-      },
-      tag: viewStore.category,
-      selection: viewStore.binding(
-        get: \.selection?.id,
-        send: CategoryRow.Action.setNavigation(selection:)
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      NavigationLink(
+        viewStore.category.rawValue,
+        destination: IfLetStore(store.scope(state: \.selection?.value, action: CategoryRow.Action.joke)) {
+          JokeView(store: $0)
+        },
+        tag: viewStore.category,
+        selection: viewStore.binding(
+          get: \.selection?.id,
+          send: CategoryRow.Action.setNavigation(selection:)
+        )
       )
-    )
+    }
   }
 }

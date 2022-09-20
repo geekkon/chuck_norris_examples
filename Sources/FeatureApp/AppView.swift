@@ -69,7 +69,6 @@ public struct AppReducer: ReducerProtocol {
 public struct AppView: View {
 
   private let store: StoreOf<AppReducer>
-  @ObservedObject private var viewStore: ViewStore<ViewState, AppReducer.Action>
 
   struct ViewState: Equatable {
     let selectedTab: AppReducer.State.Tab
@@ -81,13 +80,14 @@ public struct AppView: View {
 
   public init(store: StoreOf<AppReducer>) {
     self.store = store
-    self.viewStore = ViewStore(self.store.scope(state: ViewState.init))
   }
-  
+
   public var body: some View {
-    TabView(selection: viewStore.binding(get: \.selectedTab, send: { .selectTab($0) })) {
-      categoriesView
-      jokeView
+    WithViewStore(store, observe: ViewState.init) { viewStore in
+      TabView(selection: viewStore.binding(get: \.selectedTab, send: { .selectTab($0) })) {
+        categoriesView
+        jokeView
+      }
     }
   }
 

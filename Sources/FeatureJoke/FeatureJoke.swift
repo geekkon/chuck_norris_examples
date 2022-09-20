@@ -70,7 +70,6 @@ public struct FeatureJoke: ReducerProtocol {
 public struct JokeView: View {
 
   private let store: StoreOf<FeatureJoke>
-  @ObservedObject private var viewStore: ViewStore<ViewState, FeatureJoke.Action>
 
   struct ViewState: Equatable {
     let loadingState: FeatureJoke.State.LoadingState
@@ -84,18 +83,19 @@ public struct JokeView: View {
 
   public init(store: StoreOf<FeatureJoke>) {
     self.store = store
-    self.viewStore = ViewStore(self.store.scope(state: ViewState.init))
   }
 
   public var body: some View {
-    ZStack {
-      contentView(viewStore: viewStore)
-        .toolbar {
-          ToolbarItem(placement: .navigationBarTrailing) {
-            refreshButton(viewStore: viewStore)
+    WithViewStore(store, observe: ViewState.init) { viewStore in
+      ZStack {
+        contentView(viewStore: viewStore)
+          .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+              refreshButton(viewStore: viewStore)
+            }
           }
-        }
-        .navigationTitle(viewStore.navigationTitle)
+          .navigationTitle(viewStore.navigationTitle)
+      }
     }
   }
 

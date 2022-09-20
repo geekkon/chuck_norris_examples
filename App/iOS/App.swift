@@ -19,7 +19,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
       )
   )
 
-  fileprivate lazy var viewStore = ViewStore(
+  private lazy var viewStore = ViewStore(
     store.stateless
   )
 
