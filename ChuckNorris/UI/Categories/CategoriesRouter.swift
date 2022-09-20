@@ -20,7 +20,10 @@ final class CategoriesRouter {
     func handle(_ route: Route) {
         switch route {
             case .joke(let category):
-                print("will show joke in \(category)")
+                controller?.navigationController?.pushViewController(
+                    .jokeViewController(category: category),
+                    animated: true
+                )
         }
     }
 }

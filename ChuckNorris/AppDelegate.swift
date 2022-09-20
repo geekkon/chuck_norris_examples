@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .init(
                     name: "Random",
                     icon: "star",
-                    viewController: JokeViewController()
+                    viewController: .jokeViewController()
                 )
             ]
         )

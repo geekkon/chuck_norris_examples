@@ -6,38 +6,49 @@
 //
 
 import SwiftUI
+import CombineFeedback
 
-typealias State = JokeViewState
-typealias Action = JokeViewAction
+struct JokeView: View {
 
-struct JokeView<T: ViewModel>: View where T.State == State, T.Action == Action {
-
-    @ObservedObject var viewModel: T
-
-    init(viewModel: T) {
-        self.viewModel = viewModel
-        print("JokeView init")
-    }
+    let store: Store<JokeState, JokeEvent>
 
     var body: some View {
+        WithContextView(store: store) { context in
+            Content(isLoading: context.isLoading, joke: context.joke)
+                .navigationTitle(context.title)
+                .navigationBarItems(
+                    trailing: Button {
+                        context.send(event: .reload)
+                    } label: {
+                        Image(systemName: "arrow.2.circlepath")
+                    }
+                )
+                .onAppear {
+                    context.send(event: .reload)
+                }
+        }
+    }
+}
 
-        Group {
+extension JokeView {
 
-            if viewModel.state.loading {
+    struct Content: View {
 
+        let isLoading: Bool
+        let joke: String
+
+        var body: some View {
+            if isLoading {
                 ProgressView()
-
             } else {
-
                 ScrollView {
-                    
                     VStack(spacing: 40) {
                         Image("chucknorris")
                             .resizable()
                             .scaledToFit()
                             .padding(.top, 40)
 
-                        Text(viewModel.state.joke)
+                        Text(joke)
                             .font(.title)
 
                         Spacer()
@@ -46,34 +57,17 @@ struct JokeView<T: ViewModel>: View where T.State == State, T.Action == Action {
                 }
             }
         }
-        .navigationTitle(viewModel.state.title)
-        .navigationBarItems(
-            trailing: Button(
-                action: {
-                    viewModel.handle(.reload)
-                }
-            ) {
-                Image(systemName: "arrow.2.circlepath")
-            }
-        )
-        .onAppear {
-            print("JokeView onAppear")
-        }
     }
 }
 
 struct JokeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            JokeView(
-                viewModel: StaticViewModel(
-                    state: .init(
-                        title: "Preview",
-                        loading: false,
-                        joke: "A joke"
-                    )
-                )
+            JokeView.Content(
+                isLoading: false,
+                joke: "A joke"
             )
+            .navigationTitle("Preview")
         }
     }
 }

@@ -18,7 +18,9 @@ extension UITabBarController {
     static func build(with tabs: [Tab]) -> UITabBarController {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = tabs.enumerated().map { index, tab in
-            let navigationController = UINavigationController(rootViewController: tab.viewController)
+            let navigationController = UINavigationController(
+                rootViewController: tab.viewController
+            )
             navigationController.tabBarItem = .init(
                 title: tab.name,
                 image: UIImage(systemName: tab.icon),

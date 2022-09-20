@@ -13,17 +13,15 @@
 		3213EA1A265E96BF00E16470 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3213EA18265E96BF00E16470 /* LaunchScreen.storyboard */; };
 		3213EA25265E96C000E16470 /* ChuckNorrisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213EA24265E96C000E16470 /* ChuckNorrisTests.swift */; };
 		3213F4D2265EAB5000E16470 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4D1265EAB5000E16470 /* CategoriesView.swift */; };
-		3213F4D6265EADA300E16470 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4D5265EADA300E16470 /* ViewModel.swift */; };
-		3213F4D8265EADC700E16470 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4D7265EADC700E16470 /* Router.swift */; };
 		3213F4DC265EBCBC00E16470 /* HTTPServiceStrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4DB265EBCBC00E16470 /* HTTPServiceStrict.swift */; };
 		3213F4E1265EC9BA00E16470 /* JokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E0265EC9BA00E16470 /* JokeView.swift */; };
-		3213F4E4265EC9DA00E16470 /* JokeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E3265EC9DA00E16470 /* JokeViewController.swift */; };
-		3213F4E6265EC9E800E16470 /* JokeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E5265EC9E800E16470 /* JokeViewModel.swift */; };
 		3213F4E8265ECAD800E16470 /* JokeStrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213F4E7265ECAD800E16470 /* JokeStrict.swift */; };
 		3230EFB1265F13FC00628E59 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3230EFB0265F13FC00628E59 /* SnapshotTesting */; };
 		324F3A3228D91315002A8F88 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 324F3A3128D91315002A8F88 /* CombineFeedback */; };
 		324F3A3828D92259002A8F88 /* CategoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F3A3728D92259002A8F88 /* CategoriesRouter.swift */; };
 		324F3A4028DA08F4002A8F88 /* CategoriesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F3A3F28DA08F4002A8F88 /* CategoriesReducer.swift */; };
+		324F3A4228DA11B8002A8F88 /* JokeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F3A4128DA11B8002A8F88 /* JokeReducer.swift */; };
+		324F3A4428DA13E0002A8F88 /* JokeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F3A4328DA13E0002A8F88 /* JokeScene.swift */; };
 		3277F27B265F063E007D6B26 /* UITabBarController+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3277F27A265F063E007D6B26 /* UITabBarController+ViewControllers.swift */; };
 		32C835EE26A0351F009C5142 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C835ED26A0351F009C5142 /* HTTPRequest.swift */; };
 		32C835F026A03DD1009C5142 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C835EF26A03DD1009C5142 /* APIRequest.swift */; };
@@ -53,15 +51,13 @@
 		3213EA24265E96C000E16470 /* ChuckNorrisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckNorrisTests.swift; sourceTree = "<group>"; };
 		3213EA26265E96C000E16470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3213F4D1265EAB5000E16470 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
-		3213F4D5265EADA300E16470 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		3213F4D7265EADC700E16470 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3213F4DB265EBCBC00E16470 /* HTTPServiceStrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServiceStrict.swift; sourceTree = "<group>"; };
 		3213F4E0265EC9BA00E16470 /* JokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeView.swift; sourceTree = "<group>"; };
-		3213F4E3265EC9DA00E16470 /* JokeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeViewController.swift; sourceTree = "<group>"; };
-		3213F4E5265EC9E800E16470 /* JokeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeViewModel.swift; sourceTree = "<group>"; };
 		3213F4E7265ECAD800E16470 /* JokeStrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeStrict.swift; sourceTree = "<group>"; };
 		324F3A3728D92259002A8F88 /* CategoriesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesRouter.swift; sourceTree = "<group>"; };
 		324F3A3F28DA08F4002A8F88 /* CategoriesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesReducer.swift; sourceTree = "<group>"; };
+		324F3A4128DA11B8002A8F88 /* JokeReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeReducer.swift; sourceTree = "<group>"; };
+		324F3A4328DA13E0002A8F88 /* JokeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeScene.swift; sourceTree = "<group>"; };
 		3277F27A265F063E007D6B26 /* UITabBarController+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+ViewControllers.swift"; sourceTree = "<group>"; };
 		32C835ED26A0351F009C5142 /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		32C835EF26A03DD1009C5142 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -143,8 +139,6 @@
 		3213F4CF265EAB5000E16470 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				3213F4D7265EADC700E16470 /* Router.swift */,
-				3213F4D5265EADA300E16470 /* ViewModel.swift */,
 				3277F27C265F0643007D6B26 /* Extensions */,
 				3213F4D0265EAB5000E16470 /* Categories */,
 				3213F4E2265EC9C200E16470 /* Joke */,
@@ -177,9 +171,9 @@
 		3213F4E2265EC9C200E16470 /* Joke */ = {
 			isa = PBXGroup;
 			children = (
-				3213F4E3265EC9DA00E16470 /* JokeViewController.swift */,
-				3213F4E5265EC9E800E16470 /* JokeViewModel.swift */,
 				3213F4E0265EC9BA00E16470 /* JokeView.swift */,
+				324F3A4128DA11B8002A8F88 /* JokeReducer.swift */,
+				324F3A4328DA13E0002A8F88 /* JokeScene.swift */,
 			);
 			path = Joke;
 			sourceTree = "<group>";
@@ -319,19 +313,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3213F4D6265EADA300E16470 /* ViewModel.swift in Sources */,
 				3213EA0E265E96BE00E16470 /* AppDelegate.swift in Sources */,
 				3213F4E8265ECAD800E16470 /* JokeStrict.swift in Sources */,
 				32C835EE26A0351F009C5142 /* HTTPRequest.swift in Sources */,
 				324F3A4028DA08F4002A8F88 /* CategoriesReducer.swift in Sources */,
+				324F3A4428DA13E0002A8F88 /* JokeScene.swift in Sources */,
+				324F3A4228DA11B8002A8F88 /* JokeReducer.swift in Sources */,
 				3213F4E1265EC9BA00E16470 /* JokeView.swift in Sources */,
-				3213F4E4265EC9DA00E16470 /* JokeViewController.swift in Sources */,
-				3213F4E6265EC9E800E16470 /* JokeViewModel.swift in Sources */,
 				324F3A3828D92259002A8F88 /* CategoriesRouter.swift in Sources */,
 				32C835F426A03F2E009C5142 /* APIResponse.swift in Sources */,
 				32C835F026A03DD1009C5142 /* APIRequest.swift in Sources */,
 				32C835F826A0411A009C5142 /* URLRequest+HTTPRequest.swift in Sources */,
-				3213F4D8265EADC700E16470 /* Router.swift in Sources */,
 				3277F27B265F063E007D6B26 /* UITabBarController+ViewControllers.swift in Sources */,
 				3213F4DC265EBCBC00E16470 /* HTTPServiceStrict.swift in Sources */,
 				32C835F626A040C1009C5142 /* HTTPService.swift in Sources */,
