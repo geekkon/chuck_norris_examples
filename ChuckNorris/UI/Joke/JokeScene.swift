@@ -17,7 +17,7 @@ extension UIViewController {
             rootView: JokeView(
                 store: .init(
                     initial: .init(isLoading: true, title: "", joke: ""),
-                    feedbacks: [.jokeTitle, .loadJoke],
+                    feedbacks: [.title, .load],
                     reducer: .jokeReducer,
                     dependency: JokeDependency(category: category, httpService: .init())
                 )

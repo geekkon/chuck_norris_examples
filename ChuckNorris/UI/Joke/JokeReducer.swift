@@ -44,11 +44,10 @@ extension Reducer where State == JokeState, Event == JokeEvent {
     }
 }
 
-
-extension Feedback {
+extension Feedback where State == JokeState, Event == JokeEvent, Dependency == JokeDependency {
 
     // Это херня конечно устанавливать title который выводится из category через Feedback и Dependency
-    static var jokeTitle: Feedback<JokeState, JokeEvent, JokeDependency> {
+    static var title: Self {
         .middleware { state, dependency -> AnyPublisher<JokeEvent, Never> in
             guard state.title.isEmpty else {
                 return Empty().eraseToAnyPublisher()
@@ -59,7 +58,7 @@ extension Feedback {
         }
     }
 
-    static var loadJoke: Feedback<JokeState, JokeEvent, JokeDependency> {
+    static var load: Self {
         .middleware { state, dependency -> AnyPublisher<JokeEvent, Never> in
 
             guard state.isLoading else {
