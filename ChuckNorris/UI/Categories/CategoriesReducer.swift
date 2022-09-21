@@ -15,7 +15,7 @@ struct CategoriesState: Equatable {
     var categories: [String]
 }
 
-// Так и не нравистя что тут и UI события и событчия системы
+// Так и не нравистя что тут и UI события и события системы
 enum CategoriesEvent {
     case load
     case select(category: String)
@@ -59,9 +59,7 @@ extension Feedback {
             let request = APIRequest.Categories()
             return dependency.httpService.publisher(for: request)
                 .map(CategoriesEvent.recieved)
-                .catch { _ in
-                    Just(CategoriesEvent.failed)
-                }
+                .replaceError(with: CategoriesEvent.failed)
                 .eraseToAnyPublisher()
         }
     }

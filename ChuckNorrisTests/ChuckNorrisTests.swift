@@ -8,57 +8,120 @@
 import XCTest
 import SnapshotTesting
 import SwiftUI
+import Combine
+import CombineFeedback
 @testable import ChuckNorris
 
 class ChuckNorrisTests: XCTestCase {
 
-    // MARK: ViewModel tests
+    // MARK: CategoriesStore tests
 
-    func test_categoriesViewModel_initialState_isLoading() {
+    // Тест по аналогии с тестом, который был на viewModel. Выглядит бесполезным
+    func test_categoriesStore_doesNotChangeInitialState_afterInit() {
         let httpService = HTTPServiceMock()
-        let viewModel = CategoriesViewModel(httpService: httpService)
+        let store: Store<CategoriesState, CategoriesEvent> = .init(
+            initial: .init(isLoading: false, categories: []),
+            feedbacks: [],
+            reducer: .categoriesReducer,
+            dependency: CategoriesDependency(
+                httpService: httpService,
+                router: .init()
+            )
+        )
 
-        XCTAssertTrue(viewModel.state.loading)
-        XCTAssertTrue(viewModel.state.categories.isEmpty)
-
+        XCTAssertFalse(store.state.isLoading)
+        XCTAssertTrue(store.state.categories.isEmpty)
     }
 
-    func test_categoriesViewModel_changesState_afterLoading() {
+    func test_categoriesStore_changesState_afterLoadEvent() {
         let httpService = HTTPServiceMock()
-        let viewModel = CategoriesViewModel(httpService: httpService)
+        let store: Store<CategoriesState, CategoriesEvent> = .init(
+            initial: .init(isLoading: false, categories: []),
+            feedbacks: [],
+            reducer: .categoriesReducer,
+            dependency: CategoriesDependency(
+                httpService: httpService,
+                router: .init()
+            )
+        )
 
-        viewModel.handle(.ready)
-        httpService.completion?(.success(["result"]))
+        store.send(event: .load)
 
-        XCTAssertFalse(viewModel.state.loading)
-        XCTAssertEqual(viewModel.state.categories.first, "result")
+        XCTAssertTrue(store.state.isLoading)
+        XCTAssertTrue(store.state.categories.isEmpty)
+    }
+
+    func test_categoriesStore_changesState_afterRecievedEvent() {
+        let httpService = HTTPServiceMock()
+        let store: Store<CategoriesState, CategoriesEvent> = .init(
+            initial: .init(isLoading: true, categories: []),
+            feedbacks: [],
+            reducer: .categoriesReducer,
+            dependency: CategoriesDependency(
+                httpService: httpService,
+                router: .init()
+            )
+        )
+
+        store.send(event: .recieved(categories: ["result"]))
+
+        XCTAssertFalse(store.state.isLoading)
+        XCTAssertEqual(store.state.categories, ["result"])
+    }
+
+    // TODO: аналогично можно протестировать роутинг через событие .select(category: String)
+    // TODO: можно потестировать reducer изолированно, но как будто в этом мало смысла
+
+    // MARK: Reducer.categoriesReducer tests
+
+    func test_categoriesReducer_changesSate_basedOnEvent() {
+        var state: CategoriesState = .init(isLoading: false, categories: [])
+
+        Reducer.categoriesReducer(&state, .load)
+
+        XCTAssertTrue(state.isLoading)
+        XCTAssertTrue(state.categories.isEmpty)
+
+        Reducer.categoriesReducer(&state, .recieved(categories: ["result"]))
+
+        XCTAssertFalse(state.isLoading)
+        XCTAssertEqual(state.categories, ["result"])
     }
 
     // MARK: Snapshot tests
 
-    func test_jokeView() {
-        
-        let view = JokeView(
-            viewModel: StaticViewModel(
-                state: .init(title: "", loading: false, joke: "Chuck bez nunchack")
-            )
+    func test_snapshot_jokeView() {
+        let httpService = HTTPServiceMock()
+        let store: Store<JokeState, JokeEvent> = .init(
+            initial: .init(isLoading: false, title: "", joke: "A joke"),
+            feedbacks: [],
+            reducer: .jokeReducer,
+            dependency: JokeDependency(category: nil, httpService: httpService)
         )
 
+        /* Вот тут есть проблема. Хотя я и устанавливаю state в Store initial
+         на скриншоте статус загрузки. Происходит это потому что по onAppear вызывается
+         событие загрузки, и чтобы я тут не менял в Store это не поможет, потому onAppear
+         вызвается по факту снятия скриншота = всегда последнее событие.
+         Решение ниже (использовать JokeView.Content напрямую) как в preview и тут заходит.
+         Оставлю для наглядности
+         */
+        let view = JokeView(store: store)
         assertSnapshot(matching: view.wrapped(), as: .image)
+
+        // Можно также тестировать JokeView.Content без создания Store
+        let content = JokeView.Content(isLoading: false, joke: "Chuck bez nunchack")
+        assertSnapshot(matching: content.wrapped(), as: .image)
     }
 }
 
 private class HTTPServiceMock: HTTPService {
 
-    var completion: ((Result<[APIResponse.Category], Error>) -> Void)?
+    var categories: [APIResponse.Category] = []
 
-    override func dispatch<R: HTTPRequest>(_ httpRequest: R, completion: @escaping (Result<R.Response, Error>) -> Void) {
-        self.completion = completion as? (Result<[APIResponse.Category], Error>) -> Void
+    override func publisher<R: HTTPRequest>(for httpRequest: R) -> AnyPublisher<R.Response, Error> {
+        Result.success(categories as! R.Response).publisher.eraseToAnyPublisher()
     }
-
-//    override func getCategories(completion: @escaping (Result<[String], Error>) -> Void) {
-//        self.completion = completion
-//    }
 }
 
 extension SwiftUI.View {

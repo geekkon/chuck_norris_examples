@@ -68,9 +68,7 @@ extension Feedback where State == JokeState, Event == JokeEvent, Dependency == J
             let request = APIRequest.RandomJoke(category: dependency.category)
             return dependency.httpService.publisher(for: request)
                 .map(JokeEvent.recieved)
-                .catch { _ in
-                    Just(JokeEvent.failed)
-                }
+                .replaceError(with: JokeEvent.failed)
                 .eraseToAnyPublisher()
         }
     }
