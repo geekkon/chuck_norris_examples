@@ -11,21 +11,25 @@ import SwiftUI
 
 class ChuckNorrisFcisTests: XCTestCase {
 
-    func test_categoriesViewModel_actions() {
+    func test_categoriesViewModel_startLoading() {
         perform(
             initial: .initial,
             action: .startLoading,
             expected: .init(loading: true, categories: []),
             expectedEffects: []
         )
+    }
 
+    func test_categoriesViewModel_finishLoadingWithSuccess() {
         perform(
             initial: .init(loading: true, categories: []),
             action: .finishLoading(.success(["cat"])),
             expected: .init(loading: false, categories: ["cat"]),
             expectedEffects: []
         )
+    }
 
+    func test_categoriesViewModel_finishLoadingWithFailure() {
         struct TestFailure: Error {}
         perform(
             initial: .init(loading: true, categories: []),
@@ -33,14 +37,18 @@ class ChuckNorrisFcisTests: XCTestCase {
             expected: .init(loading: false, categories: []),
             expectedEffects: []
         )
+    }
 
+    func test_categoriesViewModel_viewReady() {
         perform(
             initial: .initial,
             action: .view(.ready),
             expected: .initial,
             expectedEffects: [.load]
         )
+    }
 
+    func test_categoriesViewModel_viewSelectCategory() {
         perform(
             initial: .initial,
             action: .view(.select(category: "cat1")),
@@ -48,6 +56,8 @@ class ChuckNorrisFcisTests: XCTestCase {
             expectedEffects: [.route(category: "cat1")]
         )
     }
+
+    // MARK: - Helpers
 
     private func perform(
         initial: CategoriesViewState,
