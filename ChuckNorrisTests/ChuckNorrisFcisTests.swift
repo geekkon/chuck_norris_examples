@@ -26,6 +26,14 @@ class ChuckNorrisFcisTests: XCTestCase {
             expectedEffects: []
         )
 
+        struct TestFailure: Error {}
+        perform(
+            initial: .init(loading: true, categories: []),
+            action: .finishLoading(.failure(TestFailure())),
+            expected: .init(loading: false, categories: []),
+            expectedEffects: []
+        )
+
         perform(
             initial: .initial,
             action: .view(.ready),

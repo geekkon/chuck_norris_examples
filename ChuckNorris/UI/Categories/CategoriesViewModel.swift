@@ -76,6 +76,7 @@ private extension CategoriesViewModel {
 extension CategoriesViewModel {
 
     enum Effect: Equatable {
+        // can be statistics, logging or anything else that is a testable SIDE effect data
         case load
         case route(category: String)
     }
@@ -85,12 +86,12 @@ extension CategoriesViewModel {
                 state.loading = true
                 return []
             case .finishLoading(let result):
+                state.loading = false
                 switch result {
                     case .success(let categories):
-                        state.loading = false
                         state.categories = categories // Mapping here if needed
                     case .failure(let error):
-                        print(error)
+                        print(error) // or do it as a side effect
                 }
                 return []
             case .view(.ready):
