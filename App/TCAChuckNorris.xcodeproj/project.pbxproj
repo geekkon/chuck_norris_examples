@@ -7,12 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1458CD9028DAC97E00763930 /* JokePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458CD8F28DAC97E00763930 /* JokePreviewApp.swift */; };
+		1458CD9428DAC97F00763930 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1458CD9328DAC97F00763930 /* Assets.xcassets */; };
+		1458CD9D28DACA6600763930 /* FeatureJoke in Frameworks */ = {isa = PBXBuildFile; productRef = 1458CD9C28DACA6600763930 /* FeatureJoke */; };
+		1458CDA528DACB9600763930 /* CategoriesPreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458CDA428DACB9600763930 /* CategoriesPreviewApp.swift */; };
+		1458CDA928DACB9700763930 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1458CDA828DACB9700763930 /* Assets.xcassets */; };
+		1458CDB128DACBAA00763930 /* FeatureCategories in Frameworks */ = {isa = PBXBuildFile; productRef = 1458CDB028DACBAA00763930 /* FeatureCategories */; };
 		14CF585D28C21EAB001350C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14CF585C28C21EAB001350C2 /* Assets.xcassets */; };
 		14F793B928C214A70045B1DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F793B828C214A70045B1DC /* App.swift */; };
 		14F793BC28C215720045B1DC /* FeatureApp in Frameworks */ = {isa = PBXBuildFile; productRef = 14F793BB28C215720045B1DC /* FeatureApp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1458CD8D28DAC97E00763930 /* JokePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JokePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1458CD8F28DAC97E00763930 /* JokePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokePreviewApp.swift; sourceTree = "<group>"; };
+		1458CD9328DAC97F00763930 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1458CDA228DACB9600763930 /* CategoriesPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CategoriesPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1458CDA428DACB9600763930 /* CategoriesPreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesPreviewApp.swift; sourceTree = "<group>"; };
+		1458CDA828DACB9700763930 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14CF585C28C21EAB001350C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14F793A328C2097B0045B1DC /* TCAChuckNorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCAChuckNorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F793B428C20CC40045B1DC /* TCAChuckNorris */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TCAChuckNorris; path = ..; sourceTree = "<group>"; };
@@ -20,6 +32,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1458CD8A28DAC97E00763930 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CD9D28DACA6600763930 /* FeatureJoke in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1458CD9F28DACB9600763930 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CDB128DACBAA00763930 /* FeatureCategories in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14F793A028C2097B0045B1DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -31,11 +59,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1458CD8E28DAC97E00763930 /* JokePreview */ = {
+			isa = PBXGroup;
+			children = (
+				1458CD8F28DAC97E00763930 /* JokePreviewApp.swift */,
+				1458CD9328DAC97F00763930 /* Assets.xcassets */,
+			);
+			path = JokePreview;
+			sourceTree = "<group>";
+		};
+		1458CD9B28DAC98E00763930 /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				1458CDA328DACB9600763930 /* CategoriesPreview */,
+				1458CD8E28DAC97E00763930 /* JokePreview */,
+			);
+			path = Previews;
+			sourceTree = "<group>";
+		};
+		1458CDA328DACB9600763930 /* CategoriesPreview */ = {
+			isa = PBXGroup;
+			children = (
+				1458CDA428DACB9600763930 /* CategoriesPreviewApp.swift */,
+				1458CDA828DACB9700763930 /* Assets.xcassets */,
+			);
+			path = CategoriesPreview;
+			sourceTree = "<group>";
+		};
 		14F7939A28C2097B0045B1DC = {
 			isa = PBXGroup;
 			children = (
 				14F793A528C2097B0045B1DC /* iOS */,
 				14F793B428C20CC40045B1DC /* TCAChuckNorris */,
+				1458CD9B28DAC98E00763930 /* Previews */,
 				14F793A428C2097B0045B1DC /* Products */,
 				14F793BA28C215720045B1DC /* Frameworks */,
 			);
@@ -45,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				14F793A328C2097B0045B1DC /* TCAChuckNorris.app */,
+				1458CD8D28DAC97E00763930 /* JokePreview.app */,
+				1458CDA228DACB9600763930 /* CategoriesPreview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +126,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1458CD8C28DAC97E00763930 /* JokePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1458CD9A28DAC97F00763930 /* Build configuration list for PBXNativeTarget "JokePreview" */;
+			buildPhases = (
+				1458CD8928DAC97E00763930 /* Sources */,
+				1458CD8A28DAC97E00763930 /* Frameworks */,
+				1458CD8B28DAC97E00763930 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JokePreview;
+			packageProductDependencies = (
+				1458CD9C28DACA6600763930 /* FeatureJoke */,
+			);
+			productName = JokePreview;
+			productReference = 1458CD8D28DAC97E00763930 /* JokePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1458CDA128DACB9600763930 /* CategoriesPreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1458CDAD28DACB9700763930 /* Build configuration list for PBXNativeTarget "CategoriesPreview" */;
+			buildPhases = (
+				1458CD9E28DACB9600763930 /* Sources */,
+				1458CD9F28DACB9600763930 /* Frameworks */,
+				1458CDA028DACB9600763930 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CategoriesPreview;
+			packageProductDependencies = (
+				1458CDB028DACBAA00763930 /* FeatureCategories */,
+			);
+			productName = CategoriesPreview;
+			productReference = 1458CDA228DACB9600763930 /* CategoriesPreview.app */;
+			productType = "com.apple.product-type.application";
+		};
 		14F793A228C2097B0045B1DC /* TCAChuckNorris */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14F793B128C2097C0045B1DC /* Build configuration list for PBXNativeTarget "TCAChuckNorris" */;
@@ -95,9 +193,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					1458CD8C28DAC97E00763930 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					1458CDA128DACB9600763930 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					14F793A228C2097B0045B1DC = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -116,12 +220,30 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				1458CD8C28DAC97E00763930 /* JokePreview */,
 				14F793A228C2097B0045B1DC /* TCAChuckNorris */,
+				1458CDA128DACB9600763930 /* CategoriesPreview */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1458CD8B28DAC97E00763930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CD9428DAC97F00763930 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1458CDA028DACB9600763930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CDA928DACB9700763930 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14F793A128C2097B0045B1DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,6 +255,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1458CD8928DAC97E00763930 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CD9028DAC97E00763930 /* JokePreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1458CD9E28DACB9600763930 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1458CDA528DACB9600763930 /* CategoriesPreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14F7939F28C2097B0045B1DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +282,126 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		1458CD9828DAC97F00763930 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5393MUFBLF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikitaborodulin.JokePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1458CD9928DAC97F00763930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5393MUFBLF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikitaborodulin.JokePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1458CDAE28DACB9700763930 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5393MUFBLF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikitaborodulin.CategoriesPreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1458CDAF28DACB9700763930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5393MUFBLF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikitaborodulin.CategoriesPreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		14F793AF28C2097C0045B1DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -323,6 +581,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1458CD9A28DAC97F00763930 /* Build configuration list for PBXNativeTarget "JokePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1458CD9828DAC97F00763930 /* Debug */,
+				1458CD9928DAC97F00763930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1458CDAD28DACB9700763930 /* Build configuration list for PBXNativeTarget "CategoriesPreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1458CDAE28DACB9700763930 /* Debug */,
+				1458CDAF28DACB9700763930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		14F7939E28C2097B0045B1DC /* Build configuration list for PBXProject "TCAChuckNorris" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -344,6 +620,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1458CD9C28DACA6600763930 /* FeatureJoke */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureJoke;
+		};
+		1458CDB028DACBAA00763930 /* FeatureCategories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureCategories;
+		};
 		14F793BB28C215720045B1DC /* FeatureApp */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureApp;
