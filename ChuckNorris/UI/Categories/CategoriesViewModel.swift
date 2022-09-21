@@ -7,14 +7,23 @@
 
 import Foundation
 
-struct CategoriesViewState {
-    let loading: Bool
-    let categories: [String]
+struct CategoriesViewState: Equatable {
+    var loading: Bool
+    var categories: [String]
+
+    static var initial: Self {
+        .init(loading: false, categories: [])
+    }
 }
 
-enum CategoriesViewAction {
-    case ready
-    case select(category: String)
+enum CategoriesAction {
+    enum View {
+        case ready
+        case select(category: String)
+    }
+    case view(View)
+    case startLoading
+    case finishLoading(Result<APIRequest.Categories.Response, Error>)
 }
 
 enum CategoriesViewRoute {
@@ -36,14 +45,19 @@ final class CategoriesViewModel: ViewModel {
         self.httpService = httpService
     }
 
-    func handle(_ action: CategoriesViewAction) {
-        switch action {
-            case .ready:
-                load()
-            case .select(let category):
-                router?(
-                    .joke(category: category)
-                )
+    func handle(_ action: CategoriesAction.View) {
+        handleAction(.view(action))
+    }
+
+    private func handleAction(_ action: CategoriesAction) {
+        let effects = Self.handleAction(action, state: &state)
+        effects.forEach {
+            switch $0 {
+                case .load:
+                    load()
+                case .route(let category):
+                    router?(.joke(category: category))
+            }
         }
     }
 }
@@ -51,22 +65,38 @@ final class CategoriesViewModel: ViewModel {
 private extension CategoriesViewModel {
 
     func load() {
-
-        state = .init(loading: true, categories: [])
-
+        handleAction(.startLoading)
         let request = APIRequest.Categories()
-
         httpService.dispatch(request) { [weak self] result in
-            switch result {
-                case .success(let categories):
-                    self?.handle(categories: categories)
-                case .failure(let error):
-                    print(error)
-            }
+            self?.handleAction(.finishLoading(result))
         }
     }
+}
 
-    func handle(categories: [APIResponse.Category]) {
-        state = .init(loading: false, categories: categories) // Mapping here if needed
+extension CategoriesViewModel {
+
+    enum Effect: Equatable {
+        case load
+        case route(category: String)
+    }
+    static func handleAction(_ action: CategoriesAction, state: inout State) -> [Effect] {
+        switch action {
+            case .startLoading:
+                state.loading = true
+                return []
+            case .finishLoading(let result):
+                switch result {
+                    case .success(let categories):
+                        state.loading = false
+                        state.categories = categories // Mapping here if needed
+                    case .failure(let error):
+                        print(error)
+                }
+                return []
+            case .view(.ready):
+                return [.load]
+            case .view(.select(let category)):
+                return [.route(category: category)]
+        }
     }
 }

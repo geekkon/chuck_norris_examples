@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoriesView<T: ViewModel>: View where T.State == CategoriesViewState, T.Action == CategoriesViewAction {
+struct CategoriesView<T: ViewModel>: View where T.State == CategoriesViewState, T.Action == CategoriesAction.View {
 
     @ObservedObject var viewModel: T
 
