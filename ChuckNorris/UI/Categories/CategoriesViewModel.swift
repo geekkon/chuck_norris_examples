@@ -56,7 +56,9 @@ final class CategoriesViewModel: ViewModel {
                 case .load:
                     load()
                 case .route(let category):
-                    router?(.joke(category: category))
+                    router?(.joke(category: category)) // ONLY UNTESTED LINE.
+                    // Should we actually test it? It's too simple to even mention testing here.
+                    // This whole function, actually. fcis guys tell it doesn't need testing.
             }
         }
     }
