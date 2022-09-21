@@ -13,19 +13,6 @@ public struct JokesRepository: Sendable {
   public var randomJoke: @Sendable (JokeCategory?) async throws -> Joke
 }
 
-extension DependencyValues {
-
-  public var jokesRepository: JokesRepository {
-    get { self[JokesRepositoryKey.self] }
-    set { self[JokesRepositoryKey.self] = newValue }
-  }
-
-  private enum JokesRepositoryKey: TestDependencyKey {
-    static let previewValue = JokesRepository.preview
-    static let testValue = JokesRepository.unimplemented
-  }
-}
-
 extension JokesRepository {
 
   public static func live(apiClient: APIClient) -> Self {
@@ -38,9 +25,6 @@ extension JokesRepository {
       }
     )
   }
-}
-
-extension JokesRepository {
 
   struct Failure: Error {}
   public static let failing = Self(
@@ -53,8 +37,11 @@ extension JokesRepository {
       throw Failure()
     }
   )
+}
 
-  public static let preview = Self(
+extension JokesRepository: TestDependencyKey {
+
+  public static let previewValue = Self(
     categories: {
       [.init("Career"), .init("Family")]
     },
@@ -63,8 +50,15 @@ extension JokesRepository {
     }
   )
 
-  public static let unimplemented = Self(
+  public static let testValue = Self(
     categories: XCTUnimplemented("\(Self.self).categories"),
     randomJoke: XCTUnimplemented("\(Self.self).randomJoke")
   )
+}
+
+public extension DependencyValues {
+  var jokesRepository: JokesRepository {
+    get { self[JokesRepository.self] }
+    set { self[JokesRepository.self] = newValue }
+  }
 }

@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/get",
       "state" : {
-        "revision" : "b28a9b404b2279d139ea8750ace4bbab1d21b569",
-        "version" : "2.1.0"
+        "revision" : "71f88e402c63dff2b1ef6f5615654baa79775a67",
+        "version" : "2.1.1"
       }
     },
     {
@@ -41,7 +41,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
-        "revision" : "f6bacd34f4b8ca5d7580e7ce68588f6b87a57237"
+        "revision" : "3f7091d39efc6f62e6c798a09a6ac6dae1e98817"
       }
     },
     {
