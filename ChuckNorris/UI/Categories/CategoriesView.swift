@@ -6,55 +6,31 @@
 //
 
 import SwiftUI
+import ReSwift
 
-struct CategoriesView<T: ViewModel>: View where T.State == CategoriesViewState, T.Action == CategoriesViewAction {
+struct CategoriesView: View {
 
-    @ObservedObject var viewModel: T
+    @ObservedObject var state: StoreState<CategoryState>
 
-    init(viewModel: T) {
-        self.viewModel = viewModel
-        print("CategoriesView init")
+    init(store: Store<AppState>) {
+        state = .init(store: store, transform: \.categoryState)
     }
 
     var body: some View {
-
         Group {
-
-            if viewModel.state.loading {
-
+            if state.current.isLoading {
                 ProgressView()
-
             } else {
-
-                List(viewModel.state.categories, id: \.self) { category in
+                List(state.current.categories, id: \.self) { category in
                     Button(category) {
-                        viewModel.handle(
-                            .select(category: category)
-                        )
+                        state.dispatch(CategoryAction.selectCategory(category))
                     }
                 }
             }
         }
         .navigationTitle("Categories")
         .onAppear {
-            viewModel.handle(.ready)
-            print("CategoriesView onAppear")
-        }
-    }
-}
-
-
-struct CategoriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CategoriesView(
-                viewModel: StaticViewModel(
-                    state: .init(
-                        loading: false,
-                        categories: ["one", "two", "three"]
-                    )
-                )
-            )
+            state.dispatch(CategoryAction.load)
         }
     }
 }

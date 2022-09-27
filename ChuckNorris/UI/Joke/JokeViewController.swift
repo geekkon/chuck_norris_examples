@@ -7,17 +7,22 @@
 
 import UIKit
 import SwiftUI
+import ReSwift
 
-final class JokeViewController: UIHostingController<JokeView<JokeViewModel>> {
+final class JokeViewController: UIHostingController<JokeView> {
 
-    init(category: String? = nil) {
-        let viewModel = JokeViewModel(category: category)
-        super.init(
-            rootView: JokeView(viewModel: viewModel)
-        )
+    private let store: Store<AppState>
+
+    init(store: Store<AppState>, sourceScreen: JokeSourceScreen) {
+        self.store = store
+        super.init(rootView: JokeView(store: store, sourceScreen: sourceScreen))
     }
 
     @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        store.dispatch(CategoryAction.removeCategory)
     }
 }

@@ -7,26 +7,40 @@
 
 import UIKit
 import SwiftUI
+import ReSwift
 
-final class CategoriesViewController: UIHostingController<CategoriesView<CategoriesViewModel>> {
+final class CategoriesViewController: UIHostingController<CategoriesView> {
 
-    init() {
-        let viewModel = CategoriesViewModel()
-        super.init(
-            rootView: CategoriesView(viewModel: viewModel)
-        )
-        viewModel.router = { [weak self] route in
-            switch route {
-                case .joke(let category):
-                    self?.navigationController?.pushViewController(
-                        JokeViewController(category: category),
-                        animated: true
-                    )
-            }
+    private let store: Store<AppState>
+
+    init(store: Store<AppState>) {
+        self.store = store
+        super.init(rootView: CategoriesView(store: store))
+
+        store.subscribe(self) {
+            $0.select({ $0.categoryState.selectedCategory != nil }).skipRepeats()
         }
+    }
+
+    deinit {
+        store.unsubscribe(self)
     }
 
     @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension CategoriesViewController: StoreSubscriber {
+
+    func newState(state: Bool) {
+        if state {
+            navigationController?.pushViewController(
+                JokeViewController(store: store, sourceScreen: .category),
+                animated: true
+            )
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }

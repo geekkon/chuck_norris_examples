@@ -12,7 +12,7 @@ enum HTTPMethod: String {
     case DELETE
 }
 
-protocol HTTPRequest {
+protocol HTTPRequest: Equatable {
 
     associatedtype Response: Decodable
 

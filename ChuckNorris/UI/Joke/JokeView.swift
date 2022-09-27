@@ -6,74 +6,49 @@
 //
 
 import SwiftUI
+import ReSwift
 
-typealias State = JokeViewState
-typealias Action = JokeViewAction
+struct JokeView: View {
+    
+    @ObservedObject private var state: StoreState<JokeViewState>
+    private let sourceScreen: JokeSourceScreen
 
-struct JokeView<T: ViewModel>: View where T.State == State, T.Action == Action {
-
-    @ObservedObject var viewModel: T
-
-    init(viewModel: T) {
-        self.viewModel = viewModel
-        print("JokeView init")
+    init(store: Store<AppState>, sourceScreen: JokeSourceScreen) {
+        state = .init(store: store) { JokeViewState(appState: $0, sourceScreen: sourceScreen) }
+        self.sourceScreen = sourceScreen
     }
 
     var body: some View {
-
         Group {
-
-            if viewModel.state.loading {
-
+            if state.current.isLoading {
                 ProgressView()
-
             } else {
-
                 ScrollView {
-                    
                     VStack(spacing: 40) {
                         Image("chucknorris")
                             .resizable()
                             .scaledToFit()
                             .padding(.top, 40)
-
-                        Text(viewModel.state.joke)
+                        Text(state.current.text)
                             .font(.title)
-
                         Spacer()
                     }
                     .padding(.horizontal, 20)
                 }
             }
         }
-        .navigationTitle(viewModel.state.title)
+        .navigationTitle(state.current.title)
         .navigationBarItems(
             trailing: Button(
                 action: {
-                    viewModel.handle(.reload)
+                    state.dispatch(JokeAction.load(sourceScreen))
                 }
             ) {
                 Image(systemName: "arrow.2.circlepath")
             }
         )
         .onAppear {
-            print("JokeView onAppear")
-        }
-    }
-}
-
-struct JokeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            JokeView(
-                viewModel: StaticViewModel(
-                    state: .init(
-                        title: "Preview",
-                        loading: false,
-                        joke: "A joke"
-                    )
-                )
-            )
+            state.dispatch(JokeAction.loadIfNeeded(sourceScreen))
         }
     }
 }
