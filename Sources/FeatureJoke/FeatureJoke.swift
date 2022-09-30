@@ -32,8 +32,6 @@ public struct FeatureJoke: ReducerProtocol {
     case refreshTapped
   }
 
-  private enum CancelID {}
-
   @Dependency(\.jokesRepository) var jokesRepository
 
   public init() {}
@@ -66,7 +64,6 @@ public struct FeatureJoke: ReducerProtocol {
       await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
     }
     .animation(.easeOut)
-    .cancellable(id: CancelID.self)
   }
 }
 
