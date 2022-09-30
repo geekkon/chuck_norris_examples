@@ -92,7 +92,7 @@ final class FeatureCategoriesTests: XCTestCase {
     }
   }
 
-  func testSelectiomTriggersNavigation() async {
+  func testSelectionTriggersNavigation() async {
     let store = TestStore(
       initialState: FeatureCategories.State(
         loadingState: .loaded(
@@ -118,6 +118,44 @@ final class FeatureCategoriesTests: XCTestCase {
             .init(
               category: .mock,
               selection: .init(.init(category: .mock), id: .mock)
+            )
+          ]
+        )
+      )
+    }
+  }
+
+  func testPoppingJokeClearsSelection() async {
+    let store = TestStore(
+      initialState: FeatureCategories.State(
+        loadingState: .loaded(
+          .init(
+            categories: [
+              .init(
+                category: .mock,
+                selection: .init(.init(category: .mock), id: .mock)
+              )
+            ]
+          )
+        )
+      ),
+      reducer: FeatureCategories()
+    )
+
+    _ = await store.send(
+      .loaded(
+        .category(
+          id: JokeCategory.mock.id,
+          action: .joke(.onDisappear)
+        )
+      )
+    ) {
+      $0.loadingState = .loaded(
+        .init(
+          categories: [
+            .init(
+              category: .mock,
+              selection: nil
             )
           ]
         )

@@ -25,22 +25,22 @@ public struct CategoryRow: ReducerProtocol {
 
   public enum Action: Equatable {
     case joke(FeatureJoke.Action)
-    case setNavigation(selection: JokeCategory?)
+    case setNavigation(selection: JokeCategory)
   }
 
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
       switch action {
+        case .joke(.onDisappear):
+          state.selection = .none
+          return .none
         case .joke:
           return .none
-        case let .setNavigation(selection: .some(category)):
+        case let .setNavigation(selection: category):
           state.selection = Identified(
             FeatureJoke.State(category: category),
             id: category
           )
-          return .none
-        case .setNavigation(selection: .none):
-          state.selection = nil
           return .none
       }
     }
@@ -66,7 +66,13 @@ struct CategoryRowView: View {
         tag: viewStore.category,
         selection: viewStore.binding(
           get: \.selection?.id,
-          send: CategoryRow.Action.setNavigation(selection:)
+          send: { selection in
+            if let selection {
+              return .setNavigation(selection: selection)
+            } else {
+              return .joke(.onDisappear)
+            }
+          }
         )
       )
     }

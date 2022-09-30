@@ -35,6 +35,23 @@ final class FeatureJokeTests: XCTestCase {
     _ = await store.send(.onAppear)
   }
 
+  func testOnDisappearCancelsInFlightRequest() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        loadingState: .initial
+      ),
+      reducer: FeatureJoke()
+    )
+    store.dependencies.jokesRepository.randomJoke = { _ in try await Task.never() }
+
+    _ = await store.send(.onAppear) {
+      $0.loadingState = .loading
+    }
+    _ = await store.send(.onDisappear) {
+      $0.loadingState = .initial
+    }
+  }
+
   func testRefresh() async {
     let store = TestStore(
       initialState: FeatureJoke.State(

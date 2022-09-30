@@ -29,8 +29,11 @@ public struct FeatureJoke: ReducerProtocol {
   public enum Action: Equatable {
     case jokeLoaded(TaskResult<Joke>)
     case onAppear
+    case onDisappear
     case refreshTapped
   }
+
+  private enum CancelID {}
 
   @Dependency(\.jokesRepository) var jokesRepository
 
@@ -50,6 +53,12 @@ public struct FeatureJoke: ReducerProtocol {
         } else {
           return .none
         }
+      case .onDisappear:
+        if state.loadingState == .loading {
+          state.loadingState = .initial
+          return .cancel(id: CancelID.self)
+        }
+        return .none
       case .refreshTapped:
         guard state.loadingState != .loading else {
           return .none
@@ -64,6 +73,7 @@ public struct FeatureJoke: ReducerProtocol {
       await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
     }
     .animation(.easeOut)
+    .cancellable(id: CancelID.self)
   }
 }
 
@@ -95,6 +105,9 @@ public struct JokeView: View {
             }
           }
           .navigationTitle(viewStore.navigationTitle)
+      }
+      .onDisappear {
+        viewStore.send(.onDisappear)
       }
     }
   }
