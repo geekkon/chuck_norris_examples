@@ -97,6 +97,7 @@ public struct AppView: View {
       CategoriesView(store: store.scope(state: \.featureCategories, action: AppReducer.Action.featureCategories))
         .navigationTitle("Joke Categories")
     }
+    .navigationViewStyle(.stack)
     .tag(AppReducer.State.Tab.categories)
     .tabItem { categoriesTabItem() }
   }
@@ -105,6 +106,7 @@ public struct AppView: View {
     NavigationView {
       JokeView(store: store.scope(state: \.featureJoke, action: AppReducer.Action.featureJoke))
     }
+    .navigationViewStyle(.stack)
     .tag(AppReducer.State.Tab.joke)
     .tabItem { jokeTabItem() }
   }
