@@ -26,7 +26,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      revision: "3f7091d39efc6f62e6c798a09a6ac6dae1e98817"
+      revision: "c7c2b43a1788e788837407e4132c68bbc0936504"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
