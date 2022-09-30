@@ -102,7 +102,6 @@ public struct JokeView: View {
     }
   }
 
-  @ViewBuilder
   private func refreshButton(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
     Button(action: { viewStore.send(.refreshTapped, animation: .easeOut) }) {
       Image(systemName: "arrow.2.circlepath")
@@ -121,7 +120,6 @@ public struct JokeView: View {
     }
   }
 
-  @ViewBuilder
   private func jokeView(joke: Joke) -> some View {
     ScrollView {
       VStack(spacing: 40) {
@@ -138,12 +136,10 @@ public struct JokeView: View {
     }
   }
 
-  @ViewBuilder
   private var failedView: some View {
     Text("Something went wrong")
   }
 
-  @ViewBuilder
   private func loadingView(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
     ProgressView()
       .onAppear {

@@ -91,7 +91,6 @@ public struct AppView: View {
     }
   }
 
-  @ViewBuilder
   private var categoriesView: some View {
     NavigationView {
       CategoriesView(store: store.scope(state: \.featureCategories, action: AppReducer.Action.featureCategories))
@@ -111,12 +110,10 @@ public struct AppView: View {
     .tabItem { jokeTabItem() }
   }
 
-  @ViewBuilder
   private func categoriesTabItem() -> some View {
     Label("Categories", systemImage: "list.dash")
   }
 
-  @ViewBuilder
   private func jokeTabItem() -> some View {
     Label("Random", systemImage: "star")
   }
