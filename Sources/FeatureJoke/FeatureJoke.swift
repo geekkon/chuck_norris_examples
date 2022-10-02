@@ -31,11 +31,14 @@ public struct FeatureJoke: ReducerProtocol {
     case onAppear
     case onDisappear
     case refreshTapped
+    case timerTicked
   }
 
-  private enum CancelID {}
+  private enum JokeLoadingID {}
+  private enum TimerID {}
 
   @Dependency(\.jokesRepository) var jokesRepository
+  @Dependency(\.mainQueue) var mainQueue
 
   public init() {}
 
@@ -46,24 +49,39 @@ public struct FeatureJoke: ReducerProtocol {
         return .none
       case let .jokeLoaded(.success(joke)):
         state.loadingState = .loaded(joke)
-        return .none
+        return startTimer()
       case .onAppear:
-        if state.loadingState == .initial {
-          return loadJoke(state: &state)
-        } else {
-          return .none
+        switch state.loadingState {
+          case .initial:
+            return loadJoke(state: &state)
+          case .loaded:
+            return .none
+          case .failed, .loading:
+            return .none
         }
       case .onDisappear:
-        if state.loadingState == .loading {
-          state.loadingState = .initial
-          return .cancel(id: CancelID.self)
+        switch state.loadingState {
+          case .loading:
+            state.loadingState = .initial
+            return .cancel(id: JokeLoadingID.self)
+          case .loaded:
+            return .cancel(id: TimerID.self)
+          case .failed, .initial:
+            return .none
         }
-        return .none
       case .refreshTapped:
         guard state.loadingState != .loading else {
           return .none
         }
-        return loadJoke(state: &state)
+        return .concatenate(
+          .cancel(id: TimerID.self),
+          loadJoke(state: &state)
+        )
+      case .timerTicked:
+        return .concatenate(
+          .cancel(id: TimerID.self),
+          loadJoke(state: &state)
+        )
     }
   }
 
@@ -73,7 +91,16 @@ public struct FeatureJoke: ReducerProtocol {
       await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
     }
     .animation(.easeOut)
-    .cancellable(id: CancelID.self)
+    .cancellable(id: JokeLoadingID.self)
+  }
+
+  private func startTimer() -> Effect<Action, Never> {
+    .run { send in
+      for await _ in self.mainQueue.timer(interval: .seconds(3)) {
+        await send(.timerTicked, animation: .easeOut)
+      }
+    }
+    .cancellable(id: TimerID.self)
   }
 }
 
