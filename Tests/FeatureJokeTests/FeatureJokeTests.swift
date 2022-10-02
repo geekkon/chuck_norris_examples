@@ -15,14 +15,17 @@ final class FeatureJokeTests: XCTestCase {
     )
 
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
+    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
 
-    _ = await store.send(.onAppear) {
+    let task = await store.send(.onAppear) {
       $0.loadingState = .loading
     }
 
     await store.receive(.jokeLoaded(.success(.mock))) {
       $0.loadingState = .loaded(.mock)
     }
+
+    await task.cancel()
   }
 
   func testOnAppearDoesntTriggerRefreshInNonInitialStates() async {
@@ -49,25 +52,6 @@ final class FeatureJokeTests: XCTestCase {
     }
     _ = await store.send(.onDisappear) {
       $0.loadingState = .initial
-    }
-  }
-
-  func testRefresh() async {
-    let store = TestStore(
-      initialState: FeatureJoke.State(
-        loadingState: .loaded(.mock)
-      ),
-      reducer: FeatureJoke()
-    )
-
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-
-    _ = await store.send(.refreshTapped) {
-      $0.loadingState = .loading
-    }
-
-    await store.receive(.jokeLoaded(.success(.mock))) {
-      $0.loadingState = .loaded(.mock)
     }
   }
 }
