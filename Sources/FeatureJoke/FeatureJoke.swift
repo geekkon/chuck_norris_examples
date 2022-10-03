@@ -111,10 +111,12 @@ public struct JokeView: View {
   struct ViewState: Equatable {
     let loadingState: FeatureJoke.State.LoadingState
     let navigationTitle: String
+    let shouldSendOnDisappear: Bool
 
     init(state: FeatureJoke.State) {
       self.loadingState = state.loadingState
       self.navigationTitle = state.category?.rawValue ?? "Random"
+      self.shouldSendOnDisappear = state.category == nil
     }
   }
 
@@ -137,7 +139,9 @@ public struct JokeView: View {
         viewStore.send(.onAppear)
       }
       .onDisappear {
-        viewStore.send(.onDisappear)
+        if viewStore.shouldSendOnDisappear {
+          viewStore.send(.onDisappear)
+        }
       }
     }
   }
