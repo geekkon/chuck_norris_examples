@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import SharedAnalytics
 import SharedJokesRepository
 import SharedModels
 @preconcurrency import SwiftUI  // NB: SwiftUI.Animation is not Sendable yet.
@@ -37,6 +38,7 @@ public struct FeatureJoke: ReducerProtocol {
   private enum JokeLoadingID {}
   private enum TimerID {}
 
+  @Dependency(\.analyticsClient) var analyticsClient
   @Dependency(\.jokesRepository) var jokesRepository
   @Dependency(\.mainQueue) var mainQueue
 
@@ -85,7 +87,20 @@ public struct FeatureJoke: ReducerProtocol {
           )
       }
     }
-    .analytics()
+    self.analyticsLogic
+  }
+
+  private var analyticsLogic: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+        case .jokeLoaded(.success):
+          return .fireAndForget { [analyticsClient = self.analyticsClient] in
+            try await analyticsClient.track(Event())
+          }
+        default:
+          return .none
+      }
+    }
   }
 
   private func loadJoke(state: inout State) -> Effect<Action, Never> {
