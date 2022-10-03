@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import SharedJokesRepository
 import SharedModels
-import SwiftUI
+@preconcurrency import SwiftUI  // NB: SwiftUI.Animation is not Sendable yet.
 
 public struct FeatureJoke: ReducerProtocol {
 
@@ -26,7 +26,7 @@ public struct FeatureJoke: ReducerProtocol {
     }
   }
 
-  public enum Action: Equatable {
+  public enum Action: Equatable, Sendable {
     case jokeLoaded(TaskResult<Joke>)
     case onAppear
     case onDisappear
@@ -98,8 +98,8 @@ public struct FeatureJoke: ReducerProtocol {
   }
 
   private func startTimer() -> Effect<Action, Never> {
-    .run { send in
-      for await _ in self.mainQueue.timer(interval: .seconds(3)) {
+    .run { [mainQueue = self.mainQueue] send in
+      for await _ in mainQueue.timer(interval: .seconds(3)) {
         await send(.timerTicked, animation: .easeOut)
       }
     }
