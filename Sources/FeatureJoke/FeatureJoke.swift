@@ -42,47 +42,50 @@ public struct FeatureJoke: ReducerProtocol {
 
   public init() {}
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
-    switch action {
-      case .jokeLoaded(.failure):
-        state.loadingState = .failed
-        return .none
-      case let .jokeLoaded(.success(joke)):
-        state.loadingState = .loaded(joke)
-        return startTimer()
-      case .onAppear:
-        switch state.loadingState {
-          case .initial:
-            return loadJoke(state: &state)
-          case .loaded:
-            return startTimer()
-          case .failed, .loading:
-            return .none
-        }
-      case .onDisappear:
-        switch state.loadingState {
-          case .loading:
-            state.loadingState = .initial
-            return .cancel(id: JokeLoadingID.self)
-          case .loaded:
-            return .cancel(id: TimerID.self)
-          case .failed, .initial:
-            return .none
-        }
-      case .refreshTapped:
-        guard state.loadingState != .loading else {
+  public var body: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+        case .jokeLoaded(.failure):
+          state.loadingState = .failed
           return .none
-        }
-        return .concatenate(
-          .cancel(id: TimerID.self),
-          loadJoke(state: &state)
-        )
-      case .timerTicked:
-        return .concatenate(
-          .cancel(id: TimerID.self),
-          loadJoke(state: &state)
-        )
+        case let .jokeLoaded(.success(joke)):
+          state.loadingState = .loaded(joke)
+          return startTimer()
+        case .onAppear:
+          switch state.loadingState {
+            case .initial:
+              return loadJoke(state: &state)
+            case .loaded:
+              return startTimer()
+            case .failed, .loading:
+              return .none
+          }
+        case .onDisappear:
+          switch state.loadingState {
+            case .loading:
+              state.loadingState = .initial
+              return .cancel(id: JokeLoadingID.self)
+            case .loaded:
+              return .cancel(id: TimerID.self)
+            case .failed, .initial:
+              return .none
+          }
+        case .refreshTapped:
+          guard state.loadingState != .loading else {
+            return .none
+          }
+          return .concatenate(
+            .cancel(id: TimerID.self),
+            loadJoke(state: &state)
+          )
+        case .timerTicked:
+          return .concatenate(
+            .cancel(id: TimerID.self),
+            loadJoke(state: &state)
+          )
+      }
     }
+    .analytics()
   }
 
   private func loadJoke(state: inout State) -> Effect<Action, Never> {

@@ -40,6 +40,7 @@ final class RefreshTests: XCTestCase {
     )
 
     struct Failure: Error, Equatable {}
+    store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
 

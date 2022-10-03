@@ -19,6 +19,7 @@ final class TimerTests: XCTestCase {
     )
 
     let mainQueue = DispatchQueue.test
+    store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
@@ -55,6 +56,7 @@ final class TimerTests: XCTestCase {
     )
 
     let mainQueue = DispatchQueue.test
+    store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 

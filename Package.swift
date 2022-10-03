@@ -71,6 +71,7 @@ let package = Package(
     .target(
       name: "FeatureJoke",
       dependencies: [
+        "SharedAnalytics",
         "SharedJokesRepository",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -103,6 +104,9 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         "LibraryAPIClient"
       ]
+    ),
+    .target(
+      name: "SharedAnalytics"
     ),
     .target(
       name: "SharedModels"

@@ -14,6 +14,7 @@ final class FeatureJokeTests: XCTestCase {
       reducer: FeatureJoke()
     )
 
+    store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
 
