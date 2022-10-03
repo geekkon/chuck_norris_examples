@@ -55,7 +55,7 @@ public struct FeatureJoke: ReducerProtocol {
           case .initial:
             return loadJoke(state: &state)
           case .loaded:
-            return .none
+            return startTimer()
           case .failed, .loading:
             return .none
         }
@@ -133,6 +133,9 @@ public struct JokeView: View {
           }
           .navigationTitle(viewStore.navigationTitle)
       }
+      .onAppear {
+        viewStore.send(.onAppear)
+      }
       .onDisappear {
         viewStore.send(.onDisappear)
       }
@@ -151,7 +154,7 @@ public struct JokeView: View {
       case .failed:
         failedView
       case .initial, .loading:
-        loadingView(viewStore: viewStore)
+        ProgressView()
       case .loaded(let joke):
         jokeView(joke: joke)
     }
@@ -175,13 +178,6 @@ public struct JokeView: View {
 
   private var failedView: some View {
     Text("Something went wrong")
-  }
-
-  private func loadingView(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
-    ProgressView()
-      .onAppear {
-        viewStore.send(.onAppear)
-      }
   }
 }
 

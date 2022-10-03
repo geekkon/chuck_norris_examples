@@ -35,7 +35,9 @@ final class FeatureJokeTests: XCTestCase {
       ),
       reducer: FeatureJoke()
     )
-    _ = await store.send(.onAppear)
+    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    let task = await store.send(.onAppear)
+    await task.cancel()
   }
 
   func testOnDisappearCancelsInFlightRequest() async {
