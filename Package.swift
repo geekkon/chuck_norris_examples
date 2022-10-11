@@ -24,10 +24,7 @@ let package = Package(
       url: "https://github.com/kean/get",
       from: "2.0.0"
     ),
-    .package(
-      url: "https://github.com/pointfreeco/swift-composable-architecture",
-      revision: "c7c2b43a1788e788837407e4132c68bbc0936504"
-    ),
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.41.0"),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
       from: "1.10.0"

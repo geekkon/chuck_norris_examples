@@ -113,7 +113,7 @@ public struct FeatureJoke: ReducerProtocol {
   }
 
   private func startTimer() -> Effect<Action, Never> {
-    .run { [mainQueue = self.mainQueue] send in
+    .run { [mainQueue] send in
       for await _ in mainQueue.timer(interval: .seconds(3)) {
         await send(.timerTicked, animation: .easeOut)
       }
@@ -174,7 +174,7 @@ public struct JokeView: View {
   private func contentView(viewStore: ViewStore<ViewState, FeatureJoke.Action>) -> some View {
     switch viewStore.loadingState {
       case .failed:
-        failedView
+        Text("Something went wrong")
       case .initial, .loading:
         ProgressView()
       case .loaded(let joke):
@@ -196,10 +196,6 @@ public struct JokeView: View {
       }
       .padding(.horizontal, 20)
     }
-  }
-
-  private var failedView: some View {
-    Text("Something went wrong")
   }
 }
 

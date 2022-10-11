@@ -12,11 +12,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
   fileprivate let store = Store(
     initialState: AppReducer.State(),
-    reducer: AppReducer()
-      .dependency(
-        \.jokesRepository,
-         .live(apiClient: .live(baseURL: .init(string: "https://api.chucknorris.io")!))
-      )
+    reducer: AppReducer().transformDependency(\.self) {
+        $0.jokesRepository = .live(apiClient: .live(baseURL: .init(string: "https://api.chucknorris.io")!))
+      }
   )
 
   private lazy var viewStore = ViewStore(
