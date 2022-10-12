@@ -17,15 +17,11 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
       }
   )
 
-  private lazy var viewStore = ViewStore(
-    store.stateless
-  )
-
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    viewStore.send(.appDelegate(.didFinishLaunching))
+    ViewStore(store).send(.appDelegate(.didFinishLaunching))
     return true
   }
 }
