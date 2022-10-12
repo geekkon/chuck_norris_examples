@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import SharedAnalytics
+import SharedAnalyticsClient
 import SharedJokesRepository
 import SharedModels
 @preconcurrency import SwiftUI  // NB: SwiftUI.Animation is not Sendable yet.

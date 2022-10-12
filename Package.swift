@@ -16,6 +16,7 @@ let package = Package(
     .library(name: "FeatureJoke", targets: ["FeatureJoke"]),
     .library(name: "FeatureUserSettings", targets: ["FeatureUserSettings"]),
     .library(name: "LibraryAPIClient", targets: ["LibraryAPIClient"]),
+    .library(name: "SharedAnalyticsClientLive", targets: ["SharedAnalyticsClientLive"]),
     .library(name: "SharedJokesRepository", targets: ["SharedJokesRepository"]),
     .library(name: "SharedModels", targets: ["SharedModels"]),
   ],
@@ -28,7 +29,8 @@ let package = Package(
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
       from: "1.10.0"
-    )
+    ),
+    .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.2.0")
   ],
   targets: [
     .target(
@@ -68,7 +70,7 @@ let package = Package(
     .target(
       name: "FeatureJoke",
       dependencies: [
-        "SharedAnalytics",
+        "SharedAnalyticsClient",
         "SharedJokesRepository",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -103,7 +105,17 @@ let package = Package(
       ]
     ),
     .target(
-      name: "SharedAnalytics"
+      name: "SharedAnalyticsClient",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-composable-architecture"),
+        .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
+      ]
+    ),
+    .target(
+      name: "SharedAnalyticsClientLive",
+      dependencies: [
+        "SharedAnalyticsClient"
+      ]
     ),
     .target(
       name: "SharedModels"

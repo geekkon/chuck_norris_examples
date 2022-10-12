@@ -13,6 +13,7 @@
 		1458CDA528DACB9600763930 /* CategoriesPreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458CDA428DACB9600763930 /* CategoriesPreviewApp.swift */; };
 		1458CDA928DACB9700763930 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1458CDA828DACB9700763930 /* Assets.xcassets */; };
 		1458CDB128DACBAA00763930 /* FeatureCategories in Frameworks */ = {isa = PBXBuildFile; productRef = 1458CDB028DACBAA00763930 /* FeatureCategories */; };
+		1489DD2728F6C5880086445A /* SharedAnalyticsClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 1489DD2628F6C5880086445A /* SharedAnalyticsClientLive */; };
 		14CF585D28C21EAB001350C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14CF585C28C21EAB001350C2 /* Assets.xcassets */; };
 		14F793B928C214A70045B1DC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F793B828C214A70045B1DC /* App.swift */; };
 		14F793BC28C215720045B1DC /* FeatureApp in Frameworks */ = {isa = PBXBuildFile; productRef = 14F793BB28C215720045B1DC /* FeatureApp */; };
@@ -53,6 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14F793BC28C215720045B1DC /* FeatureApp in Frameworks */,
+				1489DD2728F6C5880086445A /* SharedAnalyticsClientLive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +183,7 @@
 			name = TCAChuckNorris;
 			packageProductDependencies = (
 				14F793BB28C215720045B1DC /* FeatureApp */,
+				1489DD2628F6C5880086445A /* SharedAnalyticsClientLive */,
 			);
 			productName = TCAChuckNorris;
 			productReference = 14F793A328C2097B0045B1DC /* TCAChuckNorris.app */;
@@ -627,6 +630,10 @@
 		1458CDB028DACBAA00763930 /* FeatureCategories */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureCategories;
+		};
+		1489DD2628F6C5880086445A /* SharedAnalyticsClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedAnalyticsClientLive;
 		};
 		14F793BB28C215720045B1DC /* FeatureApp */ = {
 			isa = XCSwiftPackageProductDependency;

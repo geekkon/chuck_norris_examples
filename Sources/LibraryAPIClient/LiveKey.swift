@@ -7,6 +7,13 @@ import Foundation
 import Get
 import XCTestDynamicOverlay
 
+public extension APIClient where Self == LiveAPIClient {
+
+  static func live(baseURL: URL) -> APIClient {
+    LiveAPIClient(baseURL: baseURL)
+  }
+}
+
 public struct LiveAPIClient: APIClient {
 
   private let apiClient: Get.APIClient

@@ -27,17 +27,3 @@ public extension APIClient {
     try await send(request, delegate: delegate, configure: configure)
   }
 }
-
-public extension APIClient where Self == LiveAPIClient {
-
-  static func live(baseURL: URL) -> APIClient {
-    LiveAPIClient(baseURL: baseURL)
-  }
-}
-
-public extension APIClient where Self == UnimplementedAPIClient {
-
-  static var unimplemented: APIClient {
-    UnimplementedAPIClient()
-  }
-}

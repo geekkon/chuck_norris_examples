@@ -3,7 +3,7 @@
 //
 
 import ComposableArchitecture
-import SharedAnalytics
+import SharedAnalyticsClient
 import XCTest
 
 @testable import FeatureJoke

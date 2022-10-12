@@ -6,6 +6,13 @@ import Foundation
 import Get
 import XCTestDynamicOverlay
 
+public extension APIClient where Self == UnimplementedAPIClient {
+
+  static var unimplemented: APIClient {
+    UnimplementedAPIClient()
+  }
+}
+
 public struct UnimplementedAPIClient: APIClient {
 
   public func send<T>(
