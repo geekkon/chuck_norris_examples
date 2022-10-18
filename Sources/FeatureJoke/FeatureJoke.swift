@@ -18,6 +18,10 @@ public struct FeatureJoke: ReducerProtocol {
     public let category: JokeCategory?
     public var loadingState: LoadingState
 
+    public var useTimer: Bool {
+      category == nil
+    }
+
     public init(
       category: JokeCategory? = nil,
       loadingState: LoadingState = .initial
@@ -52,13 +56,13 @@ public struct FeatureJoke: ReducerProtocol {
           return .none
         case let .jokeLoaded(.success(joke)):
           state.loadingState = .loaded(joke)
-          return startTimer()
+          return state.useTimer ? startTimer() : .none
         case .onAppear:
           switch state.loadingState {
             case .initial:
               return loadJoke(state: &state)
             case .loaded:
-              return startTimer()
+              return state.useTimer ? startTimer() : .none
             case .failed, .loading:
               return .none
           }

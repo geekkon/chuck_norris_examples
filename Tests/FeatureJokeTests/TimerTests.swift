@@ -110,4 +110,27 @@ final class TimerTests: XCTestCase {
       $0.loadingState = .failed
     }
   }
+
+  func testTimerDoesntStartIfCategoryIsSelected() async {
+    let store = TestStore(
+      initialState: FeatureJoke.State(
+        category: .mock,
+        loadingState: .loaded(.mock)
+      ),
+      reducer: FeatureJoke()
+    )
+
+    store.dependencies.analyticsClient.track = { _ in }
+    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
+
+    _ = await store.send(.onAppear)
+
+    _ = await store.send(.refreshTapped) {
+      $0.loadingState = .loading
+    }
+
+    await store.receive(.jokeLoaded(.success(.mock))) {
+      $0.loadingState = .loaded(.mock)
+    }
+  }
 }
