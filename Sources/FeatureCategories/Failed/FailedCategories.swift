@@ -15,7 +15,7 @@ public struct FailedCategories: ReducerProtocol {
     case retry
   }
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     .none
   }
 }

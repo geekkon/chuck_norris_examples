@@ -103,7 +103,7 @@ public struct FeatureJoke: ReducerProtocol {
     }
   }
 
-  private func loadJoke(state: inout State) -> Effect<Action, Never> {
+  private func loadJoke(state: inout State) -> EffectTask<Action> {
     state.loadingState = .loading
     return .task { [category = state.category, repository = jokesRepository] in
       await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
@@ -112,7 +112,7 @@ public struct FeatureJoke: ReducerProtocol {
     .cancellable(id: JokeLoadingID.self)
   }
 
-  private func startTimer() -> Effect<Action, Never> {
+  private func startTimer() -> EffectTask<Action> {
     .run { [mainQueue] send in
       for await _ in mainQueue.timer(interval: .seconds(3)) {
         await send(.timerTicked, animation: .easeOut)

@@ -32,7 +32,7 @@ public struct LoadingCategories: ReducerProtocol {
 
   public init() {}
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
       case .delegate(.categoriesLoaded):
         state.hasInFlightRequest = false
