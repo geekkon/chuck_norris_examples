@@ -80,8 +80,6 @@ final class TimerTests: XCTestCase {
     await store.receive(.jokeLoaded(.failure(Failure()))) {
       $0.loadingState = .failed
     }
-
-    await mainQueue.advance(by: .seconds(5))
   }
 
   func testTimerStartsOnAppearIfJokeIsLoaded() async {
