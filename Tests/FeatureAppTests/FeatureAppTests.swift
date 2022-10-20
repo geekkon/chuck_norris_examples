@@ -16,9 +16,9 @@ final class FeatureAppTests: XCTestCase {
       reducer: AppReducer()
     )
 
-    _ = await store.send(.selectTab(.categories))
+    await store.send(.selectTab(.categories))
 
-    _ = await store.send(.selectTab(.joke)) {
+    await store.send(.selectTab(.joke)) {
       $0.selectedTab = .joke
     }
   }

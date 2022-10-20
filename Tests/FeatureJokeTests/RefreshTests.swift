@@ -22,7 +22,7 @@ final class RefreshTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.randomJoke = { _ in throw Failure() }
 
-    _ = await store.send(.refreshTapped) {
+    await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 
@@ -63,7 +63,7 @@ final class RefreshTests: XCTestCase {
       reducer: FeatureJoke()
     )
 
-    _ = await store.send(.refreshTapped)
+    await store.send(.refreshTapped)
   }
 
   func testRefreshCancelsTimer() async {
@@ -80,7 +80,7 @@ final class RefreshTests: XCTestCase {
     let jokeLoading = AsyncThrowingStream<Joke, Error>.streamWithContinuation()
     store.dependencies.jokesRepository.randomJoke = { _ in try await jokeLoading.stream.first { _ in true }! }
 
-    _ = await store.send(.refreshTapped) {
+    await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 

@@ -50,10 +50,10 @@ final class FeatureJokeTests: XCTestCase {
     )
     store.dependencies.jokesRepository.randomJoke = { _ in try await Task.never() }
 
-    _ = await store.send(.onAppear) {
+    await store.send(.onAppear) {
       $0.loadingState = .loading
     }
-    _ = await store.send(.onDisappear) {
+    await store.send(.onDisappear) {
       $0.loadingState = .initial
     }
   }

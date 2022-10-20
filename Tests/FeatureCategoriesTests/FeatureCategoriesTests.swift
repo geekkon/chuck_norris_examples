@@ -15,7 +15,7 @@ final class FeatureCategoriesTests: XCTestCase {
 
     store.dependencies.jokesRepository.categories = { [] }
 
-    _ = await store.send(.loading(.onAppear)) {
+    await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -36,8 +36,8 @@ final class FeatureCategoriesTests: XCTestCase {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
-    _ = await store.send(.loading(.onAppear))
-    _ = await store.send(.loading(.onAppear))
+    await store.send(.loading(.onAppear))
+    await store.send(.loading(.onAppear))
 
     await task.cancel()
   }
@@ -51,7 +51,7 @@ final class FeatureCategoriesTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.categories = { throw Failure() }
 
-    _ = await store.send(.loading(.onAppear)) {
+    await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -69,7 +69,7 @@ final class FeatureCategoriesTests: XCTestCase {
     struct Failure: Error, Equatable {}
     store.dependencies.jokesRepository.categories = { throw Failure() }
 
-    _ = await store.send(.loading(.onAppear)) {
+    await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -79,11 +79,11 @@ final class FeatureCategoriesTests: XCTestCase {
 
     store.dependencies.jokesRepository.categories = { [] }
 
-    _ = await store.send(.failed(.retry)) {
+    await store.send(.failed(.retry)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: false))
     }
 
-    _ = await store.send(.loading(.onAppear)) {
+    await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
     }
 
@@ -104,7 +104,7 @@ final class FeatureCategoriesTests: XCTestCase {
       reducer: FeatureCategories()
     )
 
-    _ = await store.send(
+    await store.send(
       .loaded(
         .category(
           id: JokeCategory.mock.id,
@@ -142,7 +142,7 @@ final class FeatureCategoriesTests: XCTestCase {
       reducer: FeatureCategories()
     )
 
-    _ = await store.send(
+    await store.send(
       .loaded(
         .category(
           id: JokeCategory.mock.id,

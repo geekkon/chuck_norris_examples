@@ -23,7 +23,7 @@ final class TimerTests: XCTestCase {
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-    _ = await store.send(.onAppear) {
+    await store.send(.onAppear) {
       $0.loadingState = .loading
     }
 
@@ -44,7 +44,7 @@ final class TimerTests: XCTestCase {
     }
 
     await mainQueue.advance(by: .seconds(1))
-    _ = await store.send(.onDisappear)
+    await store.send(.onDisappear)
   }
 
   func testTimerRequestFailed() async {
@@ -60,7 +60,7 @@ final class TimerTests: XCTestCase {
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-    _ = await store.send(.onAppear) {
+    await store.send(.onAppear) {
       $0.loadingState = .loading
     }
 
@@ -96,7 +96,7 @@ final class TimerTests: XCTestCase {
     let mainQueue = DispatchQueue.test
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-    _ = await store.send(.onAppear)
+    await store.send(.onAppear)
 
     await mainQueue.advance(by: .seconds(3))
 
@@ -121,9 +121,9 @@ final class TimerTests: XCTestCase {
     store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
 
-    _ = await store.send(.onAppear)
+    await store.send(.onAppear)
 
-    _ = await store.send(.refreshTapped) {
+    await store.send(.refreshTapped) {
       $0.loadingState = .loading
     }
 
