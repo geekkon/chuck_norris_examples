@@ -27,8 +27,8 @@ extension JokesRepository: TestDependencyKey {
   )
 
   public static let testValue = Self(
-    categories: XCTUnimplemented("\(Self.self).categories"),
-    randomJoke: XCTUnimplemented("\(Self.self).randomJoke")
+    categories: unimplemented("\(Self.self).categories"),
+    randomJoke: unimplemented("\(Self.self).randomJoke")
   )
 }
 

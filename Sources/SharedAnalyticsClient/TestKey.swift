@@ -17,6 +17,6 @@ public extension DependencyValues {
 extension AnalyticsClient: TestDependencyKey {
 
   public static let testValue = Self(
-    track: XCTUnimplemented("\(Self.self).track")
+    track: unimplemented("\(Self.self).track")
   )
 }
