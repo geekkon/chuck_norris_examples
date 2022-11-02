@@ -36,10 +36,10 @@ let package = Package(
     .target(
       name: "FeatureApp",
       dependencies: [
-        "FeatureCategories",
-        "FeatureJoke",
-        "FeatureUserSettings",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .feature.categories,
+        .feature.joke,
+        .thirdParty.tca,
+        .feature.userSettings
       ]
     ),
     .testTarget(
@@ -53,68 +53,68 @@ let package = Package(
     .target(
       name: "FeatureCategories",
       dependencies: [
-        "FeatureJoke",
-        "SharedJokesRepository",
-        "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .feature.joke,
+        .shared.jokesRepository,
+        .shared.models,
+        .thirdParty.tca
       ]
     ),
     .testTarget(
       name: "FeatureCategoriesTests",
       dependencies: [
-        "FeatureCategories",
-        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+        .feature.categories,
+        .thirdParty.snapshotTesting
       ],
       exclude: ["__Snapshots__"]
     ),
     .target(
       name: "FeatureJoke",
       dependencies: [
-        "SharedAnalyticsClient",
-        "SharedJokesRepository",
-        "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .shared.analyticsClient,
+        .shared.jokesRepository,
+        .shared.models,
+        .thirdParty.tca
       ]
     ),
     .testTarget(
       name: "FeatureJokeTests",
       dependencies: [
-        "FeatureJoke",
-        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+        .feature.joke,
+        .thirdParty.snapshotTesting
       ],
       exclude: ["__Snapshots__"]
     ),
     .target(
       name: "FeatureUserSettings",
       dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .thirdParty.tca
       ]
     ),
     .target(
       name: "LibraryAPIClient",
       dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "Get", package: "get")
+        .thirdParty.get,
+        .thirdParty.tca
       ]
     ),
     .target(
       name: "SharedJokesRepository",
       dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        "LibraryAPIClient"
+        .library.apiClient,
+        .thirdParty.tca
       ]
     ),
     .target(
       name: "SharedAnalyticsClient",
       dependencies: [
-        .product(name: "Dependencies", package: "swift-composable-architecture"),
-        .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
+        .thirdParty.dependencies,
+        .thirdParty.xcTestDynamicOverlay
       ]
     ),
     .target(
       name: "SharedAnalyticsClientLive",
       dependencies: [
-        "SharedAnalyticsClient"
+        .shared.analyticsClient
       ]
     ),
     .target(
@@ -122,3 +122,35 @@ let package = Package(
     )
   ]
 )
+
+extension Target.Dependency {
+
+  struct Feature {
+    let categories = Target.Dependency.byNameItem(name: "FeatureCategories", condition: nil)
+    let joke = Target.Dependency.byNameItem(name: "FeatureJoke", condition: nil)
+    let userSettings = Target.Dependency.byNameItem(name: "FeatureUserSettings", condition: nil)
+  }
+
+  struct Library {
+    let apiClient = Target.Dependency.byNameItem(name: "LibraryAPIClient", condition: nil)
+  }
+
+  struct Shared {
+    let analyticsClient = Target.Dependency.byNameItem(name: "SharedAnalyticsClient", condition: nil)
+    let jokesRepository = Target.Dependency.byNameItem(name: "SharedJokesRepository", condition: nil)
+    let models = Target.Dependency.byNameItem(name: "SharedModels", condition: nil)
+  }
+
+  struct ThirdParty {
+    let dependencies = Target.Dependency.product(name: "Dependencies", package: "swift-composable-architecture", condition: nil)
+    let get = Target.Dependency.product(name: "Get", package: "get", condition: nil)
+    let snapshotTesting = Target.Dependency.product(name: "SnapshotTesting", package: "swift-snapshot-testing", condition: nil)
+    let tca = Target.Dependency.product(name: "ComposableArchitecture", package: "swift-composable-architecture", condition: nil)
+    let xcTestDynamicOverlay = Target.Dependency.product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay", condition: nil)
+  }
+
+  static let feature = Feature()
+  static let library = Library()
+  static let shared = Shared()
+  static let thirdParty = ThirdParty()
+}
