@@ -5,59 +5,55 @@
 //  Created by Dim on 26.05.2021.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
-typealias State = JokeViewState
-typealias Action = JokeViewAction
+struct JokeView: View {
 
-struct JokeView<T: ViewModel>: View where T.State == State, T.Action == Action {
-
-    @ObservedObject var viewModel: T
-
-    init(viewModel: T) {
-        self.viewModel = viewModel
-        print("JokeView init")
-    }
+    let store: Store<JokeReducer.State, JokeReducer.Action>
 
     var body: some View {
 
-        Group {
+        WithViewStore(store) { viewStore in
 
-            if viewModel.state.loading {
+            Group {
 
-                ProgressView()
+                if viewStore.loading {
 
-            } else {
+                    ProgressView()
 
-                ScrollView {
-                    
-                    VStack(spacing: 40) {
-                        Image("chucknorris")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.top, 40)
+                } else {
 
-                        Text(viewModel.state.joke)
-                            .font(.title)
+                    ScrollView {
 
-                        Spacer()
+                        VStack(spacing: 40) {
+                            Image("chucknorris")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.top, 40)
+
+                            Text(viewStore.joke)
+                                .font(.title)
+
+                            Spacer()
+                        }
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.horizontal, 20)
                 }
             }
-        }
-        .navigationTitle(viewModel.state.title)
-        .navigationBarItems(
-            trailing: Button(
-                action: {
-                    viewModel.handle(.reload)
+            .navigationTitle(viewStore.title)
+            .navigationBarItems(
+                trailing: Button(
+                    action: {
+                        viewStore.send(.reload)
+                    }
+                ) {
+                    Image(systemName: "arrow.2.circlepath")
                 }
-            ) {
-                Image(systemName: "arrow.2.circlepath")
+            )
+            .onAppear {
+                viewStore.send(.load)
             }
-        )
-        .onAppear {
-            print("JokeView onAppear")
         }
     }
 }
@@ -66,12 +62,13 @@ struct JokeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             JokeView(
-                viewModel: StaticViewModel(
-                    state: .init(
+                store: .init(
+                    initialState: .init(
                         title: "Preview",
                         loading: false,
                         joke: "A joke"
-                    )
+                    ),
+                    reducer: NoneReducer<JokeReducer.State, JokeReducer.Action>()
                 )
             )
         }

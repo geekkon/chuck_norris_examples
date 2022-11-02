@@ -5,54 +5,53 @@
 //  Created by Dim on 26.05.2021.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
-struct CategoriesView<T: ViewModel>: View where T.State == CategoriesViewState, T.Action == CategoriesViewAction {
+struct CategoriesView: View {
 
-    @ObservedObject var viewModel: T
-
-    init(viewModel: T) {
-        self.viewModel = viewModel
-        print("CategoriesView init")
-    }
+    let store: Store<CategoriesReducer.State, CategoriesReducer.Action>
 
     var body: some View {
 
-        Group {
+        WithViewStore(store) { viewStore in
 
-            if viewModel.state.loading {
+            Group {
 
-                ProgressView()
+                if viewStore.loading {
 
-            } else {
+                    ProgressView()
 
-                List(viewModel.state.categories, id: \.self) { category in
-                    Button(category) {
-                        viewModel.handle(
-                            .select(category: category)
-                        )
+                } else {
+
+                    List(viewStore.categories, id: \.self) { category in
+                        Button(category) {
+                            viewStore.send(
+                                .select(category: category)
+                            )
+                        }
                     }
+
                 }
             }
-        }
-        .navigationTitle("Categories")
-        .onAppear {
-            viewModel.handle(.ready)
-            print("CategoriesView onAppear")
+            .navigationTitle("Categories")
+            .onAppear {
+                viewStore.send(.load)
+            }
         }
     }
 }
-
 
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             CategoriesView(
-                viewModel: StaticViewModel(
-                    state: .init(
+                store: .init(
+                    initialState: .init(
                         loading: false,
                         categories: ["one", "two", "three"]
-                    )
+                    ),
+                    reducer: NoneReducer<CategoriesReducer.State, CategoriesReducer.Action>()
                 )
             )
         }

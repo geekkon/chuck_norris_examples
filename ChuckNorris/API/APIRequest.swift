@@ -34,7 +34,7 @@ enum APIRequest {
         let method: HTTPMethod = .GET
         let path: String
 
-        init(category: String? = nil) {
+        init(category: String?) {
             path = "/random\(category.map { "?category=\($0)" } ?? "")"
         }
     }

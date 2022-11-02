@@ -21,12 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .init(
                     name: "Categories",
                     icon: "list.dash",
-                    viewController: CategoriesViewController()
+                    viewController: .categoriesViewController()
                 ),
                 .init(
                     name: "Random",
                     icon: "star",
-                    viewController: JokeViewController()
+                    viewController: .jokeViewController()
                 )
             ]
         )

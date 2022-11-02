@@ -5,64 +5,25 @@
 //  Created by Dim on 15.07.2021.
 //
 
+import Combine
 import Foundation
 
 class HTTPService {
 
     // can inject HTTPClient to easy mocking in tests
     // can inject custom decoder
+    func publisher<R: HTTPRequest>(for httpRequest: R) -> AnyPublisher<R.Response, Error> {
 
-    func dispatch<R: HTTPRequest>(
-        _ httpRequest: R,
-        completion: @escaping (Result<R.Response, Error>) -> Void
-    ) {
-
+        // TODO: Emmit error
         guard let request = URLRequest(httpRequest) else {
-            return
+            return Empty().eraseToAnyPublisher()
         }
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-
-            if let error = error { // TODO: for debug only
-                fatalError(error.localizedDescription)
-            }
-
-            guard let response = response as? HTTPURLResponse else {
-                return
-            }
-
-            if 200...299 ~= response.statusCode {
-                data.flatMap { HTTPService.handle($0, completion: completion) }
-            } else {
-                fatalError("Unhandled status code")
-            }
-        }
-        .resume()
+        // TODO: Handle HTTP & decoding errors
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: R.Response.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }
-
-
-private extension HTTPService {
-
-    static func handle<T: Decodable>(_ data: Data, completion: @escaping (Result<T, Error>) -> Void) {
-        do {
-            let result = try JSONDecoder().decode(T.self, from: data)
-            DispatchQueue.main.async {
-                completion(
-                    .success(result)
-                )
-            }
-        } catch {
-            handle(error, completion: completion)
-        }
-    }
-
-    static func handle<T: Decodable>(_ error: Error, completion: @escaping (Result<T, Error>) -> Void) {
-        DispatchQueue.main.async {
-            completion(
-                .failure(error)
-            )
-        }
-    }
-}
-
