@@ -20,28 +20,14 @@ extension UIViewController {
                         loading: true,
                         categories: []
                     ),
-                    reducer: CategoriesReducer(router: router)
+                    reducer: CategoriesReducer()
+                        .dependency(\.categoriesRouter, router)
                 )
             )
         )
         router.controller = controller
         return controller
     }
-
-    // TODO: inject router as a @Dependency ??
-//    static func categoriesViewController() -> UIViewController {
-//        UIHostingController(
-//            rootView: CategoriesView(
-//                store: .init(
-//                    initialState: .init(
-//                        loading: true,
-//                        categories: []
-//                    ),
-//                    reducer: CategoriesReducer()
-//                )
-//            )
-//        )
-//    }
 }
 
 typealias Router<T> = (T) -> Void

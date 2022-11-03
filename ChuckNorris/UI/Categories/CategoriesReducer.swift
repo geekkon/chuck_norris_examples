@@ -23,15 +23,7 @@ struct CategoriesReducer: ReducerProtocol {
     }
 
     @Dependency(\.httpService) var httpService
-    // TOOD: try to inject?
-//    @Dependency(\.categoriesRouter) var router
-
-    private let router: CategoriesRouter // TODO: replace with @Dependency??
-
-    // TODO: remove with @Dependency??
-    init(router: CategoriesRouter) {
-        self.router = router
-    }
+    @Dependency(\.categoriesRouter) var router
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
