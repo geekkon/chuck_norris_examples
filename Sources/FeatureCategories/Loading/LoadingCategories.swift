@@ -54,11 +54,9 @@ struct LoadingCategoriesView: View {
   let store: StoreOf<LoadingCategories>
 
   var body: some View {
-    WithViewStore(store, observe: { $0 }) { viewStore in
-      ProgressView()
-        .onAppear {
-          viewStore.send(.onAppear)
-        }
-    }
+    ProgressView()
+      .onAppear {
+        ViewStore(store).send(.onAppear)
+      }
   }
 }
