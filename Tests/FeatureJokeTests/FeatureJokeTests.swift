@@ -12,11 +12,11 @@ final class FeatureJokeTests: XCTestCase {
         loadingState: .initial
       ),
       reducer: FeatureJoke()
-    )
-
-    store.dependencies.analyticsClient.track = { _ in }
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    ) {
+      $0.analyticsClient.track = { _ in }
+      $0.jokesRepository.randomJoke = { _ in .mock }
+      $0.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    }
 
     let task = await store.send(.onAppear) {
       $0.loadingState = .loading
@@ -35,8 +35,9 @@ final class FeatureJokeTests: XCTestCase {
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    ) {
+      $0.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    }
     let task = await store.send(.onAppear)
     await task.cancel()
   }
@@ -47,8 +48,9 @@ final class FeatureJokeTests: XCTestCase {
         loadingState: .initial
       ),
       reducer: FeatureJoke()
-    )
-    store.dependencies.jokesRepository.randomJoke = { _ in try await Task.never() }
+    ) {
+      $0.jokesRepository.randomJoke = { _ in try await Task.never() }
+    }
 
     await store.send(.onAppear) {
       $0.loadingState = .loading

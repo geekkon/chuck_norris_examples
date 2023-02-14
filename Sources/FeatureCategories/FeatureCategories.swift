@@ -2,7 +2,7 @@ import ComposableArchitecture
 import SharedModels
 import SwiftUI
 
-public struct FeatureCategories: ReducerProtocol {
+public struct FeatureCategories: Reducer {
 
   public struct State: Equatable {
 
@@ -29,7 +29,7 @@ public struct FeatureCategories: ReducerProtocol {
 
   public init() {}
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     Scope(state: \.loadingState, action: .self) {
       EmptyReducer()
         .ifCaseLet(/State.LoadingState.failed, action: /Action.failed) {

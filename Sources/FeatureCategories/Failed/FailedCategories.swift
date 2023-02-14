@@ -5,7 +5,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct FailedCategories: ReducerProtocol {
+public struct FailedCategories: Reducer {
 
   public struct State: Equatable {
     public init() {}
@@ -15,7 +15,7 @@ public struct FailedCategories: ReducerProtocol {
     case retry
   }
 
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     .none
   }
 }
@@ -27,7 +27,7 @@ struct FailedCategoriesView: View {
   var body: some View {
     VStack {
       Text("Something went wrong")
-      Button("Retry", action: { ViewStore(store).send(.retry) })
+      Button("Retry", action: { ViewStore(store, observe: { $0 }).send(.retry) })
     }
   }
 }

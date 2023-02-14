@@ -22,15 +22,19 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/kean/get",
-      from: "2.0.0"
+        url: "https://github.com/pointfreeco/swift-dependencies",
+        exact: "0.1.4"
     ),
-    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.41.0"),
+    .package(
+      url: "https://github.com/kean/get",
+      exact: "2.1.6"
+    ),
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", revision: "8db9e20b0ad86ce6c4875e2f3928bc7b7c412bee"),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
-      from: "1.10.0"
+      exact: "1.11.0"
     ),
-    .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.2.0")
+    .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", exact: "0.8.2")
   ],
   targets: [
     .target(
@@ -142,7 +146,7 @@ extension Target.Dependency {
   }
 
   struct ThirdParty {
-    let dependencies = Target.Dependency.product(name: "Dependencies", package: "swift-composable-architecture", condition: nil)
+    let dependencies = Target.Dependency.product(name: "Dependencies", package: "swift-dependencies", condition: nil)
     let get = Target.Dependency.product(name: "Get", package: "get", condition: nil)
     let snapshotTesting = Target.Dependency.product(name: "SnapshotTesting", package: "swift-snapshot-testing", condition: nil)
     let tca = Target.Dependency.product(name: "ComposableArchitecture", package: "swift-composable-architecture", condition: nil)

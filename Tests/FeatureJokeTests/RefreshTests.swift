@@ -12,15 +12,15 @@ import XCTest
 final class RefreshTests: XCTestCase {
 
   func testFailedRefresh() async {
+    struct Failure: Error, Equatable {}
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-
-    struct Failure: Error, Equatable {}
-    store.dependencies.jokesRepository.randomJoke = { _ in throw Failure() }
+    ) {
+      $0.jokesRepository.randomJoke = { _ in throw Failure() }
+    }
 
     await store.send(.refreshTapped) {
       $0.loadingState = .loading
@@ -32,17 +32,17 @@ final class RefreshTests: XCTestCase {
   }
 
   func testSuccessfulRefresh() async {
+    struct Failure: Error, Equatable {}
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-
-    struct Failure: Error, Equatable {}
-    store.dependencies.analyticsClient.track = { _ in }
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    ) {
+      $0.analyticsClient.track = { _ in }
+      $0.jokesRepository.randomJoke = { _ in .mock }
+      $0.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
+    }
 
     let task = await store.send(.refreshTapped) {
       $0.loadingState = .loading
@@ -67,18 +67,17 @@ final class RefreshTests: XCTestCase {
   }
 
   func testRefreshCancelsTimer() async {
+    let jokeLoading = AsyncThrowingStream<Joke, Error>.streamWithContinuation()
+    let mainQueue = DispatchQueue.test
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-
-    let mainQueue = DispatchQueue.test
-    store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
-
-    let jokeLoading = AsyncThrowingStream<Joke, Error>.streamWithContinuation()
-    store.dependencies.jokesRepository.randomJoke = { _ in try await jokeLoading.stream.first { _ in true }! }
+    ) {
+      $0.jokesRepository.randomJoke = { _ in try await jokeLoading.stream.first { _ in true }! }
+      $0.mainQueue = mainQueue.eraseToAnyScheduler()
+    }
 
     await store.send(.refreshTapped) {
       $0.loadingState = .loading

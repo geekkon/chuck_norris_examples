@@ -6,7 +6,7 @@ import ComposableArchitecture
 import FeatureUserSettings
 import Foundation
 
-public struct AppDelegateReducer: ReducerProtocol {
+public struct AppDelegateReducer: Reducer {
 
   public typealias State = UserSettings
 
@@ -16,7 +16,7 @@ public struct AppDelegateReducer: ReducerProtocol {
 
   public init() {}
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     EmptyReducer()
   }
 }

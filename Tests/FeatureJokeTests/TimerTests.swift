@@ -11,17 +11,17 @@ import XCTest
 final class TimerTests: XCTestCase {
 
   func testTimerHappyPath() async {
+    let mainQueue = DispatchQueue.test
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .initial
       ),
       reducer: FeatureJoke()
-    )
-
-    let mainQueue = DispatchQueue.test
-    store.dependencies.analyticsClient.track = { _ in }
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-    store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+    ) {
+      $0.analyticsClient.track = { _ in }
+      $0.jokesRepository.randomJoke = { _ in .mock }
+      $0.mainQueue = mainQueue.eraseToAnyScheduler()
+    }
 
     await store.send(.onAppear) {
       $0.loadingState = .loading
@@ -48,17 +48,18 @@ final class TimerTests: XCTestCase {
   }
 
   func testTimerRequestFailed() async {
+    let mainQueue = DispatchQueue.test
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .initial
       ),
       reducer: FeatureJoke()
-    )
+    ) {
+      $0.analyticsClient.track = { _ in }
+      $0.mainQueue = mainQueue.eraseToAnyScheduler()
+    }
 
-    let mainQueue = DispatchQueue.test
-    store.dependencies.analyticsClient.track = { _ in }
     store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-    store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
     await store.send(.onAppear) {
       $0.loadingState = .loading
@@ -83,18 +84,17 @@ final class TimerTests: XCTestCase {
   }
 
   func testTimerStartsOnAppearIfJokeIsLoaded() async {
+    struct Failure: Error, Equatable {}
+    let mainQueue = DispatchQueue.test
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-
-    struct Failure: Error, Equatable {}
-    store.dependencies.jokesRepository.randomJoke = { _ in throw Failure() }
-
-    let mainQueue = DispatchQueue.test
-    store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+    ) {
+      $0.jokesRepository.randomJoke = { _ in throw Failure() }
+      $0.mainQueue = mainQueue.eraseToAnyScheduler()
+    }
 
     await store.send(.onAppear)
 
@@ -116,10 +116,10 @@ final class TimerTests: XCTestCase {
         loadingState: .loaded(.mock)
       ),
       reducer: FeatureJoke()
-    )
-
-    store.dependencies.analyticsClient.track = { _ in }
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
+    ) {
+      $0.analyticsClient.track = { _ in }
+      $0.jokesRepository.randomJoke = { _ in .mock }
+    }
 
     await store.send(.onAppear)
 

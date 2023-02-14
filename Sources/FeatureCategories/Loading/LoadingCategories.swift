@@ -7,7 +7,7 @@ import SharedJokesRepository
 import SharedModels
 import SwiftUI
 
-public struct LoadingCategories: ReducerProtocol {
+public struct LoadingCategories: Reducer {
 
   public struct State: Equatable {
 
@@ -32,7 +32,7 @@ public struct LoadingCategories: ReducerProtocol {
 
   public init() {}
 
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
       case .delegate(.categoriesLoaded):
         state.hasInFlightRequest = false
@@ -56,7 +56,7 @@ struct LoadingCategoriesView: View {
   var body: some View {
     ProgressView()
       .onAppear {
-        ViewStore(store).send(.onAppear)
+        ViewStore(store, observe: { $0 }).send(.onAppear)
       }
   }
 }

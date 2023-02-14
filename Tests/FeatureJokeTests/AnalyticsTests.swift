@@ -12,19 +12,19 @@ import XCTest
 final class AnalyticsTests: XCTestCase {
 
   func testJokeLoadedTracked() async {
+    var trackedEvent: Event?
     let store = TestStore(
       initialState: FeatureJoke.State(
         loadingState: .loading
       ),
       reducer: FeatureJoke()
-    )
-
-    var trackedEvent: Event?
-    store.dependencies.analyticsClient.track = { @MainActor in
-      trackedEvent = $0
+    ) {
+      $0.analyticsClient.track = { @MainActor in
+        trackedEvent = $0
+      }
+      $0.jokesRepository.randomJoke = { _ in .mock }
+      $0.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
     }
-    store.dependencies.jokesRepository.randomJoke = { _ in .mock }
-    store.dependencies.mainQueue = DispatchQueue.test.eraseToAnyScheduler()
 
     let task = await store.send(.jokeLoaded(.success(.mock))) {
       $0.loadingState = .loaded(.mock)

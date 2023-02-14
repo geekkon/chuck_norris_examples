@@ -12,16 +12,16 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
   fileprivate let store = Store(
     initialState: AppReducer.State(),
-    reducer: AppReducer().transformDependency(\.self) {
-        $0.jokesRepository = .live(apiClient: .live(baseURL: .init(string: "https://api.chucknorris.io")!))
-      }
-  )
+    reducer: AppReducer()
+  ) {
+    $0.jokesRepository = .live(apiClient: .live(baseURL: .init(string: "https://api.chucknorris.io")!))
+  }
 
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    ViewStore(store).send(.appDelegate(.didFinishLaunching))
+    ViewStore(store, observe: { $0 }).send(.appDelegate(.didFinishLaunching))
     return true
   }
 }

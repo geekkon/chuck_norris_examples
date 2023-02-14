@@ -4,7 +4,7 @@ import SharedJokesRepository
 import SharedModels
 @preconcurrency import SwiftUI  // NB: SwiftUI.Animation is not Sendable yet.
 
-public struct FeatureJoke: ReducerProtocol {
+public struct FeatureJoke: Reducer {
 
   public struct State: Equatable {
 
@@ -48,7 +48,7 @@ public struct FeatureJoke: ReducerProtocol {
 
   public init() {}
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
         case .jokeLoaded(.failure):
@@ -94,7 +94,7 @@ public struct FeatureJoke: ReducerProtocol {
     self.analyticsLogic
   }
 
-  private var analyticsLogic: some ReducerProtocol<State, Action> {
+  private var analyticsLogic: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
         case .jokeLoaded(.success):
@@ -107,7 +107,7 @@ public struct FeatureJoke: ReducerProtocol {
     }
   }
 
-  private func loadJoke(state: inout State) -> EffectTask<Action> {
+  private func loadJoke(state: inout State) -> Effect<Action> {
     state.loadingState = .loading
     return .task { [category = state.category, repository = jokesRepository] in
       await .jokeLoaded(TaskResult { try await repository.randomJoke(category) })
@@ -116,7 +116,7 @@ public struct FeatureJoke: ReducerProtocol {
     .cancellable(id: JokeLoadingID.self)
   }
 
-  private func startTimer() -> EffectTask<Action> {
+  private func startTimer() -> Effect<Action> {
     .run { [mainQueue] send in
       for await _ in mainQueue.timer(interval: .seconds(3)) {
         await send(.timerTicked, animation: .easeOut)

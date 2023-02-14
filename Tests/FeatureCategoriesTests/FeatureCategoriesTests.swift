@@ -11,9 +11,9 @@ final class FeatureCategoriesTests: XCTestCase {
     let store = TestStore(
       initialState: FeatureCategories.State(),
       reducer: FeatureCategories()
-    )
-
-    store.dependencies.jokesRepository.categories = { [] }
+    ) {
+      $0.jokesRepository.categories = { [] }
+    }
 
     await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
@@ -28,9 +28,9 @@ final class FeatureCategoriesTests: XCTestCase {
     let store = TestStore(
       initialState: FeatureCategories.State(),
       reducer: FeatureCategories()
-    )
-
-    store.dependencies.jokesRepository.categories = { try await Task.never() }
+    ) {
+      $0.jokesRepository.categories = { try await Task.never() }
+    }
 
     let task = await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))
@@ -46,10 +46,11 @@ final class FeatureCategoriesTests: XCTestCase {
     let store = TestStore(
       initialState: FeatureCategories.State(),
       reducer: FeatureCategories()
-    )
+    ) {
+      $0.jokesRepository.categories = { throw Failure() }
+    }
 
     struct Failure: Error, Equatable {}
-    store.dependencies.jokesRepository.categories = { throw Failure() }
 
     await store.send(.loading(.onAppear)) {
       $0.loadingState = .loading(.init(hasInFlightRequest: true))

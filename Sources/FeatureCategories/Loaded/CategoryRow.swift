@@ -7,7 +7,7 @@ import FeatureJoke
 import SharedModels
 import SwiftUI
 
-public struct CategoryRow: ReducerProtocol {
+public struct CategoryRow: Reducer {
 
   public struct State: Equatable, Identifiable {
     let category: JokeCategory
@@ -28,7 +28,7 @@ public struct CategoryRow: ReducerProtocol {
     case setNavigation(selection: JokeCategory)
   }
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
         case .joke(.onDisappear):

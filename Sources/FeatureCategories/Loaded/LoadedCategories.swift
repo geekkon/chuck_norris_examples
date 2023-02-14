@@ -6,7 +6,7 @@ import ComposableArchitecture
 import SharedModels
 import SwiftUI
 
-public struct LoadedCategories: ReducerProtocol {
+public struct LoadedCategories: Reducer {
 
   public struct State: Equatable {
 
@@ -21,7 +21,7 @@ public struct LoadedCategories: ReducerProtocol {
     case category(id: JokeCategory.ID, action: CategoryRow.Action)
   }
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     EmptyReducer()
       .forEach(\.categories, action: /Action.category) {
         CategoryRow()
